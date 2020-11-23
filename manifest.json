@@ -1,6 +1,6 @@
 {
-  "name": "MyApp",
-  "short_name": "MyApp",
+  "name": "NutriInfo",
+  "short_name": "NutriInfo",
   "description": "Description of your app from template",
   "start_url": "index.html",
   "scope": "index.html",
