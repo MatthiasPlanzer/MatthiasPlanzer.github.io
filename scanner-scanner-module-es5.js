@@ -42,7 +42,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-title>Barcode-Scanner</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <zxing-scanner [(device)]=\"currentDevice\" (scanSuccess)=\"onCodeResult($event)\"\n  [formats]=\"formatsEnabled\" [tryHarder]=\"tryHarder\" (permissionResponse)=\"onHasPermission($event)\"\n  (camerasFound)=\"onCamerasFound($event)\"></zxing-scanner>\n</ion-content>\n";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-title>Barcode-Scanner</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content *ngIf=\"enabled\">\n  <zxing-scanner [(device)]=\"currentDevice\" (scanSuccess)=\"onCodeResult($event)\"\n  [formats]=\"formatsEnabled\"  [enable]=\"enabled\" (permissionResponse)=\"onHasPermission($event)\"\n  (camerasFound)=\"onCamerasFound($event)\"></zxing-scanner>\n</ion-content>\n";
       /***/
     },
 
@@ -103,18 +103,26 @@
       var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
       /*! @ionic/angular */
       "./node_modules/@ionic/angular/__ivy_ngcc__/fesm2015/ionic-angular.js");
+      /* harmony import */
+
+
+      var _products_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! ../products.service */
+      "./src/app/products.service.ts");
 
       var AddProductComponent = /*#__PURE__*/function () {
-        function AddProductComponent(modalController) {
+        function AddProductComponent(modalController, productsService) {
           _classCallCheck(this, AddProductComponent);
 
           this.modalController = modalController;
+          this.productsService = productsService;
         }
 
         _createClass(AddProductComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
             console.log(this.code);
+            var product = this.productsService.getProductDetails(this.code);
           }
         }, {
           key: "dismissModal",
@@ -131,6 +139,8 @@
       AddProductComponent.ctorParameters = function () {
         return [{
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"]
+        }, {
+          type: _products_service__WEBPACK_IMPORTED_MODULE_3__["ProductsService"]
         }];
       };
 
@@ -363,20 +373,40 @@
       var _add_product_add_product_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! ../add-product/add-product.component */
       "./src/app/add-product/add-product.component.ts");
+      /* harmony import */
+
+
+      var _products_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! ../products.service */
+      "./src/app/products.service.ts");
 
       var ScannerPage = /*#__PURE__*/function () {
-        function ScannerPage(modalController) {
+        function ScannerPage(modalController, productsService, alertController) {
           _classCallCheck(this, ScannerPage);
 
           this.modalController = modalController;
+          this.productsService = productsService;
+          this.alertController = alertController;
           this.modalOpen = false;
           this.currentDevice = null;
           this.formatsEnabled = [_zxing_library__WEBPACK_IMPORTED_MODULE_3__["BarcodeFormat"].CODE_128, _zxing_library__WEBPACK_IMPORTED_MODULE_3__["BarcodeFormat"].DATA_MATRIX, _zxing_library__WEBPACK_IMPORTED_MODULE_3__["BarcodeFormat"].EAN_13, _zxing_library__WEBPACK_IMPORTED_MODULE_3__["BarcodeFormat"].QR_CODE];
-          this.tryHarder = true;
+          this.enabled = true;
           this.modal = null;
         }
 
         _createClass(ScannerPage, [{
+          key: "ionViewWillEnter",
+          value: function ionViewWillEnter() {
+            console.log('enter');
+            this.enabled = true;
+          }
+        }, {
+          key: "ionViewWillLeave",
+          value: function ionViewWillLeave() {
+            console.log('leave');
+            this.enabled = false;
+          }
+        }, {
           key: "generateModal",
           value: function generateModal() {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
@@ -386,13 +416,7 @@
                 while (1) {
                   switch (_context.prev = _context.next) {
                     case 0:
-                      if (!(this.modalOpen === false)) {
-                        _context.next = 12;
-                        break;
-                      }
-
-                      this.modalOpen = true;
-                      _context.next = 4;
+                      _context.next = 2;
                       return this.modalController.create({
                         component: _add_product_add_product_component__WEBPACK_IMPORTED_MODULE_4__["AddProductComponent"],
                         componentProps: {
@@ -400,22 +424,21 @@
                         }
                       });
 
-                    case 4:
+                    case 2:
                       this.modal = _context.sent;
-                      _context.next = 7;
+                      _context.next = 5;
                       return this.modal.present();
 
-                    case 7:
-                      _context.next = 9;
+                    case 5:
+                      _context.next = 7;
                       return this.modal.onWillDismiss();
 
-                    case 9:
+                    case 7:
                       _yield$this$modal$onW = _context.sent;
                       data = _yield$this$modal$onW.data;
-                      // console.log(data);
                       this.modalOpen = false;
 
-                    case 12:
+                    case 10:
                     case "end":
                       return _context.stop();
                   }
@@ -438,7 +461,62 @@
           key: "onCodeResult",
           value: function onCodeResult(resultString) {
             this.qrResultString = resultString;
-            this.generateModal();
+            var errorDialog = this.errorDialog.bind(this);
+            var generateModal = this.generateModal.bind(this);
+
+            if (this.modalOpen === false) {
+              this.modalOpen = true;
+              this.productsService.addProduct(resultString).then(function () {
+                generateModal();
+              })["catch"](function (error) {
+                console.log(error);
+                errorDialog();
+              });
+            }
+          }
+        }, {
+          key: "errorDialog",
+          value: function errorDialog() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+              var _this = this;
+
+              var alert;
+              return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                while (1) {
+                  switch (_context2.prev = _context2.next) {
+                    case 0:
+                      _context2.next = 2;
+                      return this.alertController.create({
+                        header: 'Fehler',
+                        message: 'Das gescannte Produkt ist nicht in unserer Datenbank erfasst. Möchten Sie dies dem Entwickler melden?',
+                        buttons: [{
+                          text: 'Nein',
+                          role: 'cancel',
+                          cssClass: 'secondary',
+                          handler: function handler() {
+                            _this.modalOpen = false;
+                          }
+                        }, {
+                          text: 'Ja',
+                          handler: function handler() {
+                            window.location.href = "mailto:nutriinfo.app@gmail.com?subject=Fehlerbericht%20NutriInfo&body=Ein%20Fehler%20mit%20dem%20Barcode%20Scanner%20wurde%20erkannt.%20Der%20Barcode%20\"[]\"%20konnte%20nicht%20in%20unserer%20Datenbank%20gefunden%20werden.%0D%0ABitte%20geben%20Sie%20manuell%20den%20Namen%20des%20Produktes%20an:".replace("[]", _this.qrResultString);
+                            _this.modalOpen = false;
+                          }
+                        }]
+                      });
+
+                    case 2:
+                      alert = _context2.sent;
+                      _context2.next = 5;
+                      return alert.present().then(function () {}.bind(this));
+
+                    case 5:
+                    case "end":
+                      return _context2.stop();
+                  }
+                }
+              }, _callee2, this);
+            }));
           }
         }, {
           key: "onDeviceSelectChange",
@@ -462,11 +540,6 @@
               hasPermission: this.hasPermission
             }; // this._dialog.open(AppInfoDialogComponent, { data });
           }
-        }, {
-          key: "toggleTryHarder",
-          value: function toggleTryHarder() {
-            this.tryHarder = !this.tryHarder;
-          }
         }]);
 
         return ScannerPage;
@@ -475,6 +548,10 @@
       ScannerPage.ctorParameters = function () {
         return [{
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"]
+        }, {
+          type: _products_service__WEBPACK_IMPORTED_MODULE_5__["ProductsService"]
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"]
         }];
       };
 

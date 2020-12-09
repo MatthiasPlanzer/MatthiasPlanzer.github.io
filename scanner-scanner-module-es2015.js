@@ -22,7 +22,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-title>Barcode-Scanner</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <zxing-scanner [(device)]=\"currentDevice\" (scanSuccess)=\"onCodeResult($event)\"\n  [formats]=\"formatsEnabled\" [tryHarder]=\"tryHarder\" (permissionResponse)=\"onHasPermission($event)\"\n  (camerasFound)=\"onCamerasFound($event)\"></zxing-scanner>\n</ion-content>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-title>Barcode-Scanner</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content *ngIf=\"enabled\">\n  <zxing-scanner [(device)]=\"currentDevice\" (scanSuccess)=\"onCodeResult($event)\"\n  [formats]=\"formatsEnabled\"  [enable]=\"enabled\" (permissionResponse)=\"onHasPermission($event)\"\n  (camerasFound)=\"onCamerasFound($event)\"></zxing-scanner>\n</ion-content>\n");
 
 /***/ }),
 
@@ -52,15 +52,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/__ivy_ngcc__/fesm2015/ionic-angular.js");
+/* harmony import */ var _products_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../products.service */ "./src/app/products.service.ts");
+
 
 
 
 let AddProductComponent = class AddProductComponent {
-    constructor(modalController) {
+    constructor(modalController, productsService) {
         this.modalController = modalController;
+        this.productsService = productsService;
     }
     ngOnInit() {
         console.log(this.code);
+        var product = this.productsService.getProductDetails(this.code);
     }
     dismissModal() {
         if (this.modalController) {
@@ -69,7 +73,8 @@ let AddProductComponent = class AddProductComponent {
     }
 };
 AddProductComponent.ctorParameters = () => [
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] },
+    { type: _products_service__WEBPACK_IMPORTED_MODULE_3__["ProductsService"] }
 ];
 AddProductComponent.propDecorators = {
     code: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] }]
@@ -197,14 +202,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _zxing_library__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @zxing/library */ "./node_modules/@zxing/library/umd/index.js");
 /* harmony import */ var _zxing_library__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_zxing_library__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _add_product_add_product_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../add-product/add-product.component */ "./src/app/add-product/add-product.component.ts");
+/* harmony import */ var _products_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../products.service */ "./src/app/products.service.ts");
+
 
 
 
 
 
 let ScannerPage = class ScannerPage {
-    constructor(modalController) {
+    constructor(modalController, productsService, alertController) {
         this.modalController = modalController;
+        this.productsService = productsService;
+        this.alertController = alertController;
         this.modalOpen = false;
         this.currentDevice = null;
         this.formatsEnabled = [
@@ -213,24 +222,28 @@ let ScannerPage = class ScannerPage {
             _zxing_library__WEBPACK_IMPORTED_MODULE_3__["BarcodeFormat"].EAN_13,
             _zxing_library__WEBPACK_IMPORTED_MODULE_3__["BarcodeFormat"].QR_CODE,
         ];
-        this.tryHarder = true;
+        this.enabled = true;
         this.modal = null;
+    }
+    ionViewWillEnter() {
+        console.log('enter');
+        this.enabled = true;
+    }
+    ionViewWillLeave() {
+        console.log('leave');
+        this.enabled = false;
     }
     generateModal() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            if (this.modalOpen === false) {
-                this.modalOpen = true;
-                this.modal = yield this.modalController.create({
-                    component: _add_product_add_product_component__WEBPACK_IMPORTED_MODULE_4__["AddProductComponent"],
-                    componentProps: {
-                        code: this.qrResultString
-                    }
-                });
-                yield this.modal.present();
-                let { data } = yield this.modal.onWillDismiss();
-                // console.log(data);
-                this.modalOpen = false;
-            }
+            this.modal = yield this.modalController.create({
+                component: _add_product_add_product_component__WEBPACK_IMPORTED_MODULE_4__["AddProductComponent"],
+                componentProps: {
+                    code: this.qrResultString
+                }
+            });
+            yield this.modal.present();
+            let { data } = yield this.modal.onWillDismiss();
+            this.modalOpen = false;
         });
     }
     clearResult() {
@@ -242,7 +255,43 @@ let ScannerPage = class ScannerPage {
     }
     onCodeResult(resultString) {
         this.qrResultString = resultString;
-        this.generateModal();
+        var errorDialog = this.errorDialog.bind(this);
+        var generateModal = this.generateModal.bind(this);
+        if (this.modalOpen === false) {
+            this.modalOpen = true;
+            this.productsService.addProduct(resultString).then(function () {
+                generateModal();
+            }).catch(function (error) {
+                console.log(error);
+                errorDialog();
+            });
+        }
+    }
+    errorDialog() {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            const alert = yield this.alertController.create({
+                header: 'Fehler',
+                message: 'Das gescannte Produkt ist nicht in unserer Datenbank erfasst. Möchten Sie dies dem Entwickler melden?',
+                buttons: [
+                    {
+                        text: 'Nein',
+                        role: 'cancel',
+                        cssClass: 'secondary',
+                        handler: () => {
+                            this.modalOpen = false;
+                        }
+                    }, {
+                        text: 'Ja',
+                        handler: () => {
+                            window.location.href = "mailto:nutriinfo.app@gmail.com?subject=Fehlerbericht%20NutriInfo&body=Ein%20Fehler%20mit%20dem%20Barcode%20Scanner%20wurde%20erkannt.%20Der%20Barcode%20\"[]\"%20konnte%20nicht%20in%20unserer%20Datenbank%20gefunden%20werden.%0D%0ABitte%20geben%20Sie%20manuell%20den%20Namen%20des%20Produktes%20an:".replace("[]", this.qrResultString);
+                            this.modalOpen = false;
+                        }
+                    }
+                ]
+            });
+            yield alert.present().then(function () {
+            }.bind(this));
+        });
     }
     onDeviceSelectChange(selected) {
         const device = this.availableDevices.find(x => x.deviceId === selected);
@@ -259,12 +308,11 @@ let ScannerPage = class ScannerPage {
         };
         // this._dialog.open(AppInfoDialogComponent, { data });
     }
-    toggleTryHarder() {
-        this.tryHarder = !this.tryHarder;
-    }
 };
 ScannerPage.ctorParameters = () => [
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] },
+    { type: _products_service__WEBPACK_IMPORTED_MODULE_5__["ProductsService"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"] }
 ];
 ScannerPage.propDecorators = {
     modalOpen: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] }]

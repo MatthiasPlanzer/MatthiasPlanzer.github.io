@@ -440,7 +440,19 @@
 
       var _ionic_storage__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
       /*! @ionic/storage */
-      "./node_modules/@ionic/storage/__ivy_ngcc__/fesm2015/ionic-storage.js"); // import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+      "./node_modules/@ionic/storage/__ivy_ngcc__/fesm2015/ionic-storage.js");
+      /* harmony import */
+
+
+      var _products_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
+      /*! ./products.service */
+      "./src/app/products.service.ts");
+      /* harmony import */
+
+
+      var _angular_common_http__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(
+      /*! @angular/common/http */
+      "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js"); // import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 
       var AppModule = function AppModule() {
@@ -450,10 +462,10 @@
       AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
         declarations: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]],
         entryComponents: [],
-        imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(), _ionic_storage__WEBPACK_IMPORTED_MODULE_13__["IonicStorageModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"], _zxing_ngx_scanner__WEBPACK_IMPORTED_MODULE_10__["ZXingScannerModule"], _angular_service_worker__WEBPACK_IMPORTED_MODULE_11__["ServiceWorkerModule"].register('ngsw-worker.js', {
+        imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_15__["HttpClientModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(), _ionic_storage__WEBPACK_IMPORTED_MODULE_13__["IonicStorageModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"], _zxing_ngx_scanner__WEBPACK_IMPORTED_MODULE_10__["ZXingScannerModule"], _angular_service_worker__WEBPACK_IMPORTED_MODULE_11__["ServiceWorkerModule"].register('ngsw-worker.js', {
           enabled: _environments_environment__WEBPACK_IMPORTED_MODULE_12__["environment"].production
         })],
-        providers: [_ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"], _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"], // BarcodeScanner,
+        providers: [_ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"], _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"], _products_service__WEBPACK_IMPORTED_MODULE_14__["ProductsService"], // BarcodeScanner,
         // ZXingScannerModule,
         _ionic_native_dialogs_ngx__WEBPACK_IMPORTED_MODULE_9__["Dialogs"], {
           provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"],
@@ -461,6 +473,162 @@
         }],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]]
       })], AppModule);
+      /***/
+    },
+
+    /***/
+    "./src/app/products.service.ts":
+    /*!*************************************!*\
+      !*** ./src/app/products.service.ts ***!
+      \*************************************/
+
+    /*! exports provided: ProductsService */
+
+    /***/
+    function srcAppProductsServiceTs(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "ProductsService", function () {
+        return ProductsService;
+      });
+      /* harmony import */
+
+
+      var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! tslib */
+      "./node_modules/tslib/tslib.es6.js");
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! @angular/core */
+      "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+      /* harmony import */
+
+
+      var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! @angular/common/http */
+      "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+      /* harmony import */
+
+
+      var _ionic_storage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! @ionic/storage */
+      "./node_modules/@ionic/storage/__ivy_ngcc__/fesm2015/ionic-storage.js");
+
+      var ProductsService_1;
+
+      var ProductsService = ProductsService_1 = /*#__PURE__*/function () {
+        function ProductsService(storage, httpClient) {
+          _classCallCheck(this, ProductsService);
+
+          this.storage = storage;
+          this.httpClient = httpClient;
+          this.storage.get("products").then(function (products) {
+            if (products) {
+              ProductsService_1.products = products;
+            }
+
+            console.log(products, ProductsService_1.products);
+          });
+        }
+
+        _createClass(ProductsService, [{
+          key: "getProductDetails",
+          value: function getProductDetails(barcode) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              var result;
+              return regeneratorRuntime.wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      _context.next = 2;
+                      return this.httpClient.get(ProductsService_1.APIUrl.replace('[]', barcode)).toPromise();
+
+                    case 2:
+                      result = _context.sent;
+
+                      if (!(result.status === 1 && result.product)) {
+                        _context.next = 7;
+                        break;
+                      }
+
+                      return _context.abrupt("return", result.product);
+
+                    case 7:
+                      return _context.abrupt("return", null);
+
+                    case 8:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _callee, this);
+            }));
+          }
+        }, {
+          key: "addProduct",
+          value: function addProduct(barcode) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+              var product;
+              return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                while (1) {
+                  switch (_context2.prev = _context2.next) {
+                    case 0:
+                      product = this.getProductDetails(barcode);
+
+                      if (!(product !== null)) {
+                        _context2.next = 5;
+                        break;
+                      }
+
+                      ProductsService_1.products.push(product);
+                      _context2.next = 7;
+                      break;
+
+                    case 5:
+                      console.log('not found');
+                      throw new Error(barcode);
+
+                    case 7:
+                      this.updateStorage();
+
+                    case 8:
+                    case "end":
+                      return _context2.stop();
+                  }
+                }
+              }, _callee2, this);
+            }));
+          }
+        }, {
+          key: "updateStorage",
+          value: function updateStorage() {
+            this.storage.set("products", ProductsService_1.products);
+          }
+        }]);
+
+        return ProductsService;
+      }();
+
+      ProductsService.APIUrl = "https://world.openfoodfacts.org/api/v0/product/[].json";
+      ProductsService.products = [];
+
+      ProductsService.ctorParameters = function () {
+        return [{
+          type: _ionic_storage__WEBPACK_IMPORTED_MODULE_3__["Storage"]
+        }, {
+          type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]
+        }];
+      };
+
+      ProductsService = ProductsService_1 = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+      })], ProductsService);
       /***/
     },
 
