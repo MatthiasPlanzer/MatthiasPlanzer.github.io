@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header translucent>\n  <ion-toolbar>\n    <ion-title>Modal Content</ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-button (click)=\"dismissModal()\">Close</ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n<ion-content fullscreen>\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div *ngIf=\"product\">\n  <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css\" integrity=\"sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2\" crossorigin=\"anonymous\">\n  <ion-header translucent>\n    <ion-toolbar>\n      <ion-title>{{ product.product_name }}</ion-title>\n      <ion-buttons slot=\"end\">\n        <ion-button (click)=\"dismissModal()\">Schliessen</ion-button>\n      </ion-buttons>\n    </ion-toolbar>\n  </ion-header>\n  <ion-content fullscreen>\n    <img [src]=\"product.image_url\">\n    <button (click)=\"confirmAdding()\">Produkt hinzufügen</button>\n    <table class=\"table\">\n      <thead>\n        <tr>\n          <th>Menge</th>\n          <th>Nährwert</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr>\n          <td>Kohlenhydrate</td>\n          <td>{{ product.nutriments.carbohydrates }}</td>\n        </tr>\n        <tr>\n          <td>davon Zucker</td>\n          <td>{{ product.nutriments.fat }}</td>\n        </tr>\n        <tr>\n          <td>Energie</td>\n          <td>{{ product.nutriments.energy }}kJ / {{ product.nutriments.energy-kcal }}kJ</td>\n        </tr>\n        <tr>\n          <td>Fett</td>\n          <td>{{ product.nutriments.fat }}</td>\n        </tr>\n      </tbody>\n    </table>\n  </ion-content>\n</div>");
 
 /***/ }),
 
@@ -63,8 +63,18 @@ let AddProductComponent = class AddProductComponent {
         this.productsService = productsService;
     }
     ngOnInit() {
-        console.log(this.code);
-        var product = this.productsService.getProductDetails(this.code);
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            console.log(this.code);
+            var product = yield this.productsService.getProductDetails(this.code);
+            this.product = product;
+            console.log(product);
+        });
+    }
+    confirmAdding() {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            var status = yield this.productsService.addProduct(this.product);
+            this.modalController.dismiss();
+        });
     }
     dismissModal() {
         if (this.modalController) {
@@ -146,6 +156,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scanner_routing_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./scanner-routing.module */ "./src/app/scanner/scanner-routing.module.ts");
 /* harmony import */ var _scanner_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./scanner.page */ "./src/app/scanner/scanner.page.ts");
 /* harmony import */ var _zxing_ngx_scanner__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @zxing/ngx-scanner */ "./node_modules/@zxing/ngx-scanner/fesm2015/zxing-ngx-scanner.js");
+/* harmony import */ var _add_product_add_product_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../add-product/add-product.component */ "./src/app/add-product/add-product.component.ts");
+
 
 
 
@@ -165,7 +177,11 @@ ScannerPageModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
             _scanner_routing_module__WEBPACK_IMPORTED_MODULE_5__["ScannerPageRoutingModule"],
             _zxing_ngx_scanner__WEBPACK_IMPORTED_MODULE_7__["ZXingScannerModule"],
         ],
-        declarations: [_scanner_page__WEBPACK_IMPORTED_MODULE_6__["ScannerPage"]],
+        exports: [
+            _scanner_page__WEBPACK_IMPORTED_MODULE_6__["ScannerPage"],
+            _add_product_add_product_component__WEBPACK_IMPORTED_MODULE_8__["AddProductComponent"]
+        ],
+        declarations: [_scanner_page__WEBPACK_IMPORTED_MODULE_6__["ScannerPage"], _add_product_add_product_component__WEBPACK_IMPORTED_MODULE_8__["AddProductComponent"]],
     })
 ], ScannerPageModule);
 
@@ -259,7 +275,7 @@ let ScannerPage = class ScannerPage {
         var generateModal = this.generateModal.bind(this);
         if (this.modalOpen === false) {
             this.modalOpen = true;
-            this.productsService.addProduct(resultString).then(function () {
+            this.productsService.getProductDetails(resultString).then(function () {
                 generateModal();
             }).catch(function (error) {
                 console.log(error);

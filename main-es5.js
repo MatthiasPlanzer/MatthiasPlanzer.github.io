@@ -452,7 +452,13 @@
 
       var _angular_common_http__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(
       /*! @angular/common/http */
-      "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js"); // import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+      "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+      /* harmony import */
+
+
+      var _angular_common__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(
+      /*! @angular/common */
+      "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js"); // import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 
       var AppModule = function AppModule() {
@@ -462,7 +468,7 @@
       AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
         declarations: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]],
         entryComponents: [],
-        imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_15__["HttpClientModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(), _ionic_storage__WEBPACK_IMPORTED_MODULE_13__["IonicStorageModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"], _zxing_ngx_scanner__WEBPACK_IMPORTED_MODULE_10__["ZXingScannerModule"], _angular_service_worker__WEBPACK_IMPORTED_MODULE_11__["ServiceWorkerModule"].register('ngsw-worker.js', {
+        imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_15__["HttpClientModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(), _ionic_storage__WEBPACK_IMPORTED_MODULE_13__["IonicStorageModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"], _zxing_ngx_scanner__WEBPACK_IMPORTED_MODULE_10__["ZXingScannerModule"], _angular_common__WEBPACK_IMPORTED_MODULE_16__["CommonModule"], _angular_service_worker__WEBPACK_IMPORTED_MODULE_11__["ServiceWorkerModule"].register('ngsw-worker.js', {
           enabled: _environments_environment__WEBPACK_IMPORTED_MODULE_12__["environment"].production
         })],
         providers: [_ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"], _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"], _products_service__WEBPACK_IMPORTED_MODULE_14__["ProductsService"], // BarcodeScanner,
@@ -572,32 +578,29 @@
           }
         }, {
           key: "addProduct",
-          value: function addProduct(barcode) {
+          value: function addProduct(product) {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-              var product;
               return regeneratorRuntime.wrap(function _callee2$(_context2) {
                 while (1) {
                   switch (_context2.prev = _context2.next) {
                     case 0:
-                      product = this.getProductDetails(barcode);
-
                       if (!(product !== null)) {
-                        _context2.next = 5;
+                        _context2.next = 4;
                         break;
                       }
 
                       ProductsService_1.products.push(product);
-                      _context2.next = 7;
+                      _context2.next = 5;
                       break;
 
+                    case 4:
+                      return _context2.abrupt("return", false);
+
                     case 5:
-                      console.log('not found');
-                      throw new Error(barcode);
+                      this.updateStorage();
+                      return _context2.abrupt("return", true);
 
                     case 7:
-                      this.updateStorage();
-
-                    case 8:
                     case "end":
                       return _context2.stop();
                   }
@@ -615,7 +618,7 @@
         return ProductsService;
       }();
 
-      ProductsService.APIUrl = "https://world.openfoodfacts.org/api/v0/product/[].json";
+      ProductsService.APIUrl = "https://de.openfoodfacts.org/api/v0/product/[].json";
       ProductsService.products = [];
 
       ProductsService.ctorParameters = function () {

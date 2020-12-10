@@ -408,6 +408,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/__ivy_ngcc__/fesm2015/ionic-storage.js");
 /* harmony import */ var _products_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./products.service */ "./src/app/products.service.ts");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
 
 
 
@@ -418,6 +419,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+
 
 
 
@@ -438,6 +440,7 @@ AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
             _ionic_storage__WEBPACK_IMPORTED_MODULE_13__["IonicStorageModule"].forRoot(),
             _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"],
             _zxing_ngx_scanner__WEBPACK_IMPORTED_MODULE_10__["ZXingScannerModule"],
+            _angular_common__WEBPACK_IMPORTED_MODULE_16__["CommonModule"],
             _angular_service_worker__WEBPACK_IMPORTED_MODULE_11__["ServiceWorkerModule"].register('ngsw-worker.js', { enabled: _environments_environment__WEBPACK_IMPORTED_MODULE_12__["environment"].production })
         ],
         providers: [
@@ -499,24 +502,24 @@ let ProductsService = ProductsService_1 = class ProductsService {
             }
         });
     }
-    addProduct(barcode) {
+    addProduct(product) {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            var product = this.getProductDetails(barcode);
+            // var product = await this.getProductDetails(barcode);
             if (product !== null) {
                 ProductsService_1.products.push(product);
             }
             else {
-                console.log('not found');
-                throw new Error(barcode);
+                return false;
             }
             this.updateStorage();
+            return true;
         });
     }
     updateStorage() {
         this.storage.set("products", ProductsService_1.products);
     }
 };
-ProductsService.APIUrl = "https://world.openfoodfacts.org/api/v0/product/[].json";
+ProductsService.APIUrl = "https://de.openfoodfacts.org/api/v0/product/[].json";
 ProductsService.products = [];
 ProductsService.ctorParameters = () => [
     { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_3__["Storage"] },

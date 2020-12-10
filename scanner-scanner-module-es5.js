@@ -22,7 +22,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header translucent>\n  <ion-toolbar>\n    <ion-title>Modal Content</ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-button (click)=\"dismissModal()\">Close</ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n<ion-content fullscreen>\n</ion-content>";
+      __webpack_exports__["default"] = "<div *ngIf=\"product\">\n  <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css\" integrity=\"sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2\" crossorigin=\"anonymous\">\n  <ion-header translucent>\n    <ion-toolbar>\n      <ion-title>{{ product.product_name }}</ion-title>\n      <ion-buttons slot=\"end\">\n        <ion-button (click)=\"dismissModal()\">Schliessen</ion-button>\n      </ion-buttons>\n    </ion-toolbar>\n  </ion-header>\n  <ion-content fullscreen>\n    <img [src]=\"product.image_url\">\n    <button (click)=\"confirmAdding()\">Produkt hinzufügen</button>\n    <table class=\"table\">\n      <thead>\n        <tr>\n          <th>Menge</th>\n          <th>Nährwert</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr>\n          <td>Kohlenhydrate</td>\n          <td>{{ product.nutriments.carbohydrates }}</td>\n        </tr>\n        <tr>\n          <td>davon Zucker</td>\n          <td>{{ product.nutriments.fat }}</td>\n        </tr>\n        <tr>\n          <td>Energie</td>\n          <td>{{ product.nutriments.energy }}kJ / {{ product.nutriments.energy-kcal }}kJ</td>\n        </tr>\n        <tr>\n          <td>Fett</td>\n          <td>{{ product.nutriments.fat }}</td>\n        </tr>\n      </tbody>\n    </table>\n  </ion-content>\n</div>";
       /***/
     },
 
@@ -121,8 +121,52 @@
         _createClass(AddProductComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            console.log(this.code);
-            var product = this.productsService.getProductDetails(this.code);
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              var product;
+              return regeneratorRuntime.wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      console.log(this.code);
+                      _context.next = 3;
+                      return this.productsService.getProductDetails(this.code);
+
+                    case 3:
+                      product = _context.sent;
+                      this.product = product;
+                      console.log(product);
+
+                    case 6:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _callee, this);
+            }));
+          }
+        }, {
+          key: "confirmAdding",
+          value: function confirmAdding() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+              var status;
+              return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                while (1) {
+                  switch (_context2.prev = _context2.next) {
+                    case 0:
+                      _context2.next = 2;
+                      return this.productsService.addProduct(this.product);
+
+                    case 2:
+                      status = _context2.sent;
+                      this.modalController.dismiss();
+
+                    case 4:
+                    case "end":
+                      return _context2.stop();
+                  }
+                }
+              }, _callee2, this);
+            }));
           }
         }, {
           key: "dismissModal",
@@ -288,6 +332,12 @@
       var _zxing_ngx_scanner__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! @zxing/ngx-scanner */
       "./node_modules/@zxing/ngx-scanner/fesm2015/zxing-ngx-scanner.js");
+      /* harmony import */
+
+
+      var _add_product_add_product_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! ../add-product/add-product.component */
+      "./src/app/add-product/add-product.component.ts");
 
       var ScannerPageModule = function ScannerPageModule() {
         _classCallCheck(this, ScannerPageModule);
@@ -295,7 +345,8 @@
 
       ScannerPageModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
         imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"], _scanner_routing_module__WEBPACK_IMPORTED_MODULE_5__["ScannerPageRoutingModule"], _zxing_ngx_scanner__WEBPACK_IMPORTED_MODULE_7__["ZXingScannerModule"]],
-        declarations: [_scanner_page__WEBPACK_IMPORTED_MODULE_6__["ScannerPage"]]
+        exports: [_scanner_page__WEBPACK_IMPORTED_MODULE_6__["ScannerPage"], _add_product_add_product_component__WEBPACK_IMPORTED_MODULE_8__["AddProductComponent"]],
+        declarations: [_scanner_page__WEBPACK_IMPORTED_MODULE_6__["ScannerPage"], _add_product_add_product_component__WEBPACK_IMPORTED_MODULE_8__["AddProductComponent"]]
       })], ScannerPageModule);
       /***/
     },
@@ -409,14 +460,14 @@
         }, {
           key: "generateModal",
           value: function generateModal() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
               var _yield$this$modal$onW, data;
 
-              return regeneratorRuntime.wrap(function _callee$(_context) {
+              return regeneratorRuntime.wrap(function _callee3$(_context3) {
                 while (1) {
-                  switch (_context.prev = _context.next) {
+                  switch (_context3.prev = _context3.next) {
                     case 0:
-                      _context.next = 2;
+                      _context3.next = 2;
                       return this.modalController.create({
                         component: _add_product_add_product_component__WEBPACK_IMPORTED_MODULE_4__["AddProductComponent"],
                         componentProps: {
@@ -425,25 +476,25 @@
                       });
 
                     case 2:
-                      this.modal = _context.sent;
-                      _context.next = 5;
+                      this.modal = _context3.sent;
+                      _context3.next = 5;
                       return this.modal.present();
 
                     case 5:
-                      _context.next = 7;
+                      _context3.next = 7;
                       return this.modal.onWillDismiss();
 
                     case 7:
-                      _yield$this$modal$onW = _context.sent;
+                      _yield$this$modal$onW = _context3.sent;
                       data = _yield$this$modal$onW.data;
                       this.modalOpen = false;
 
                     case 10:
                     case "end":
-                      return _context.stop();
+                      return _context3.stop();
                   }
                 }
-              }, _callee, this);
+              }, _callee3, this);
             }));
           }
         }, {
@@ -466,7 +517,7 @@
 
             if (this.modalOpen === false) {
               this.modalOpen = true;
-              this.productsService.addProduct(resultString).then(function () {
+              this.productsService.getProductDetails(resultString).then(function () {
                 generateModal();
               })["catch"](function (error) {
                 console.log(error);
@@ -477,15 +528,15 @@
         }, {
           key: "errorDialog",
           value: function errorDialog() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
               var _this = this;
 
               var alert;
-              return regeneratorRuntime.wrap(function _callee2$(_context2) {
+              return regeneratorRuntime.wrap(function _callee4$(_context4) {
                 while (1) {
-                  switch (_context2.prev = _context2.next) {
+                  switch (_context4.prev = _context4.next) {
                     case 0:
-                      _context2.next = 2;
+                      _context4.next = 2;
                       return this.alertController.create({
                         header: 'Fehler',
                         message: 'Das gescannte Produkt ist nicht in unserer Datenbank erfasst. Möchten Sie dies dem Entwickler melden?',
@@ -506,16 +557,16 @@
                       });
 
                     case 2:
-                      alert = _context2.sent;
-                      _context2.next = 5;
+                      alert = _context4.sent;
+                      _context4.next = 5;
                       return alert.present().then(function () {}.bind(this));
 
                     case 5:
                     case "end":
-                      return _context2.stop();
+                      return _context4.stop();
                   }
                 }
-              }, _callee2, this);
+              }, _callee4, this);
             }));
           }
         }, {
