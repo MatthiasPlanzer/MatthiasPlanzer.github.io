@@ -40,7 +40,7 @@ const App = class {
   }
   componentDidLoad() {
     {
-      rIC(() => {
+      rIC(async () => {
         const isHybrid = Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["i"])(window, 'hybrid');
         if (!_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["c"].getBoolean('_testing')) {
           __webpack_require__.e(/*! import() | tap-click-71d2324a-js */ "tap-click-71d2324a-js").then(__webpack_require__.bind(null, /*! ./tap-click-71d2324a.js */ "./node_modules/@ionic/core/dist/esm/tap-click-71d2324a.js")).then(module => module.startTapClick(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["c"]));
@@ -51,8 +51,12 @@ const App = class {
         if (_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["c"].getBoolean('inputShims', needInputShims())) {
           __webpack_require__.e(/*! import() | input-shims-bc550f99-js */ "input-shims-bc550f99-js").then(__webpack_require__.bind(null, /*! ./input-shims-bc550f99.js */ "./node_modules/@ionic/core/dist/esm/input-shims-bc550f99.js")).then(module => module.startInputShims(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["c"]));
         }
+        const hardwareBackButtonModule = await Promise.resolve(/*! import() */).then(__webpack_require__.bind(null, /*! ./hardware-back-button-4a6b37fb.js */ "./node_modules/@ionic/core/dist/esm/hardware-back-button-4a6b37fb.js"));
         if (_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["c"].getBoolean('hardwareBackButton', isHybrid)) {
-          Promise.resolve(/*! import() */).then(__webpack_require__.bind(null, /*! ./hardware-back-button-389954a0.js */ "./node_modules/@ionic/core/dist/esm/hardware-back-button-389954a0.js")).then(module => module.startHardwareBackButton());
+          hardwareBackButtonModule.startHardwareBackButton();
+        }
+        else {
+          hardwareBackButtonModule.blockHardwareBackButton();
         }
         if (typeof window !== 'undefined') {
           __webpack_require__.e(/*! import() | keyboard-5742b5da-js */ "keyboard-5742b5da-js").then(__webpack_require__.bind(null, /*! ./keyboard-5742b5da.js */ "./node_modules/@ionic/core/dist/esm/keyboard-5742b5da.js")).then(module => module.startKeyboardAssist(window));
