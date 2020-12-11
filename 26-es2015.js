@@ -155,9 +155,14 @@ const translateElement = (el, value) => {
 };
 // Utils
 // -----------------------------
-const shouldUseNativeRefresher = (referenceEl, mode) => {
-  const pullingSpinner = referenceEl.querySelector('ion-refresher-content .refresher-pulling ion-spinner');
-  const refreshingSpinner = referenceEl.querySelector('ion-refresher-content .refresher-refreshing ion-spinner');
+const shouldUseNativeRefresher = async (referenceEl, mode) => {
+  const refresherContent = referenceEl.querySelector('ion-refresher-content');
+  if (!refresherContent) {
+    return Promise.resolve(false);
+  }
+  await refresherContent.componentOnReady();
+  const pullingSpinner = refresherContent.querySelector('.refresher-pulling ion-spinner');
+  const refreshingSpinner = refresherContent.querySelector('.refresher-refreshing ion-spinner');
   return (pullingSpinner !== null &&
     refreshingSpinner !== null &&
     ((mode === 'ios' && Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["i"])('mobile') && referenceEl.style.webkitOverflowScrolling !== undefined) ||
@@ -282,8 +287,8 @@ const Refresher = class {
       this.gesture.enable(!this.disabled);
     }
   }
-  checkNativeRefresher() {
-    const useNativeRefresher = shouldUseNativeRefresher(this.el, Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this));
+  async checkNativeRefresher() {
+    const useNativeRefresher = await shouldUseNativeRefresher(this.el, Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this));
     if (useNativeRefresher && !this.nativeRefresher) {
       const contentEl = this.el.closest('ion-content');
       this.setupNativeRefresher(contentEl);
@@ -503,6 +508,14 @@ const Refresher = class {
     if (this.scrollListenerCallback || !contentEl || this.nativeRefresher || !this.scrollEl) {
       return;
     }
+    /**
+     * If using non-native refresher before make sure
+     * we clean up any old CSS. This can happen when
+     * a user manually calls the refresh method in a
+     * component create callback before the native
+     * refresher is setup.
+     */
+    this.setCss(0, '', false, '');
     this.nativeRefresher = true;
     const pullingSpinner = this.el.querySelector('ion-refresher-content .refresher-pulling ion-spinner');
     const refreshingSpinner = this.el.querySelector('ion-refresher-content .refresher-refreshing ion-spinner');
@@ -529,7 +542,7 @@ const Refresher = class {
     await contentEl.componentOnReady();
     this.scrollEl = await contentEl.getScrollElement();
     this.backgroundContentEl = Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["g"])(contentEl).querySelector('#background-content');
-    if (shouldUseNativeRefresher(this.el, Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this))) {
+    if (await shouldUseNativeRefresher(this.el, Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this))) {
       this.setupNativeRefresher(contentEl);
     }
     else {
