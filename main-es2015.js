@@ -299,10 +299,6 @@ const routes = [
         path: "scanner",
         loadChildren: () => __webpack_require__.e(/*! import() | scanner-scanner-module */ "scanner-scanner-module").then(__webpack_require__.bind(null, /*! ./scanner/scanner.module */ "./src/app/scanner/scanner.module.ts")).then((m) => m.ScannerPageModule),
     },
-    {
-        path: 'overview',
-        loadChildren: () => __webpack_require__.e(/*! import() | overview-overview-module */ "overview-overview-module").then(__webpack_require__.bind(null, /*! ./overview/overview.module */ "./src/app/overview/overview.module.ts")).then(m => m.OverviewPageModule)
-    },
 ];
 let AppRoutingModule = class AppRoutingModule {
 };
@@ -498,7 +494,7 @@ let ProductsService = ProductsService_1 = class ProductsService {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             const result = yield this.httpClient.get(ProductsService_1.APIUrl.replace('[]', barcode))
                 .toPromise();
-            if (result && result.status === 1 && result.product) {
+            if (result.status === 1 && result.product) {
                 return result.product;
             }
             else {

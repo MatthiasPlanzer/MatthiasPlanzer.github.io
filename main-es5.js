@@ -197,17 +197,6 @@
             return m.ScannerPageModule;
           });
         }
-      }, {
-        path: 'overview',
-        loadChildren: function loadChildren() {
-          return __webpack_require__.e(
-          /*! import() | overview-overview-module */
-          "overview-overview-module").then(__webpack_require__.bind(null,
-          /*! ./overview/overview.module */
-          "./src/app/overview/overview.module.ts")).then(function (m) {
-            return m.OverviewPageModule;
-          });
-        }
       }];
 
       var AppRoutingModule = function AppRoutingModule() {
@@ -569,7 +558,7 @@
                     case 2:
                       result = _context.sent;
 
-                      if (!(result && result.status === 1 && result.product)) {
+                      if (!(result.status === 1 && result.product)) {
                         _context.next = 7;
                         break;
                       }

@@ -84,15 +84,15 @@
       /* harmony import */
 
 
-      var _hardware_back_button_389954a0_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
-      /*! ./hardware-back-button-389954a0.js */
-      "./node_modules/@ionic/core/dist/esm/hardware-back-button-389954a0.js");
+      var _hardware_back_button_4a6b37fb_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! ./hardware-back-button-4a6b37fb.js */
+      "./node_modules/@ionic/core/dist/esm/hardware-back-button-4a6b37fb.js");
       /* harmony import */
 
 
-      var _overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
-      /*! ./overlays-7a1610a2.js */
-      "./node_modules/@ionic/core/dist/esm/overlays-7a1610a2.js");
+      var _overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! ./overlays-12c20431.js */
+      "./node_modules/@ionic/core/dist/esm/overlays-12c20431.js");
       /* harmony import */
 
 
@@ -861,7 +861,7 @@
                     case 2:
                       pickerOptions = this.generatePickerOptions();
                       _context2.next = 5;
-                      return _overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_5__["p"].create(pickerOptions);
+                      return _overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_5__["p"].create(pickerOptions);
 
                     case 5:
                       picker = _context2.sent;
@@ -1415,13 +1415,13 @@
           this.animated = true;
 
           this.onBackdropTap = function () {
-            _this6.dismiss(undefined, _overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_5__["B"]);
+            _this6.dismiss(undefined, _overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_5__["B"]);
           };
 
           this.dispatchCancelHandler = function (ev) {
             var role = ev.detail.role;
 
-            if (Object(_overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_5__["i"])(role)) {
+            if (Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_5__["i"])(role)) {
               var cancelButton = _this6.buttons.find(function (b) {
                 return b.role === 'cancel';
               });
@@ -1434,7 +1434,7 @@
         _createClass(Picker, [{
           key: "connectedCallback",
           value: function connectedCallback() {
-            Object(_overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_5__["e"])(this.el);
+            Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_5__["e"])(this.el);
           }
           /**
            * Present the picker overlay after it has been created.
@@ -1451,7 +1451,7 @@
                   switch (_context3.prev = _context3.next) {
                     case 0:
                       _context3.next = 2;
-                      return Object(_overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_5__["d"])(this, 'pickerEnter', iosEnterAnimation, iosEnterAnimation, undefined);
+                      return Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_5__["d"])(this, 'pickerEnter', iosEnterAnimation, iosEnterAnimation, undefined);
 
                     case 2:
                       if (this.duration > 0) {
@@ -1491,7 +1491,7 @@
               clearTimeout(this.durationTimeout);
             }
 
-            return Object(_overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_5__["f"])(this, data, role, 'pickerLeave', iosLeaveAnimation, iosLeaveAnimation);
+            return Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_5__["f"])(this, data, role, 'pickerLeave', iosLeaveAnimation, iosLeaveAnimation);
           }
           /**
            * Returns a promise that resolves when the picker did dismiss.
@@ -1500,7 +1500,7 @@
         }, {
           key: "onDidDismiss",
           value: function onDidDismiss() {
-            return Object(_overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_5__["g"])(this.el, 'ionPickerDidDismiss');
+            return Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_5__["g"])(this.el, 'ionPickerDidDismiss');
           }
           /**
            * Returns a promise that resolves when the picker will dismiss.
@@ -1509,7 +1509,7 @@
         }, {
           key: "onWillDismiss",
           value: function onWillDismiss() {
-            return Object(_overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_5__["g"])(this.el, 'ionPickerWillDismiss');
+            return Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_5__["g"])(this.el, 'ionPickerWillDismiss');
           }
           /**
            * Get the column that matches the specified name.
@@ -1535,7 +1535,7 @@
                     case 0:
                       role = button.role;
 
-                      if (!Object(_overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_5__["i"])(role)) {
+                      if (!Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_5__["i"])(role)) {
                         _context4.next = 3;
                         break;
                       }
@@ -1588,7 +1588,7 @@
                       }
 
                       _context5.next = 3;
-                      return Object(_overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_5__["s"])(button.handler, this.getSelected());
+                      return Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_5__["s"])(button.handler, this.getSelected());
 
                     case 3:
                       rtn = _context5.sent;
