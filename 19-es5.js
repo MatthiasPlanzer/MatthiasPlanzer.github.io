@@ -82,15 +82,15 @@
       /* harmony import */
 
 
-      var _hardware_back_button_4a6b37fb_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
-      /*! ./hardware-back-button-4a6b37fb.js */
-      "./node_modules/@ionic/core/dist/esm/hardware-back-button-4a6b37fb.js");
+      var _hardware_back_button_389954a0_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! ./hardware-back-button-389954a0.js */
+      "./node_modules/@ionic/core/dist/esm/hardware-back-button-389954a0.js");
       /* harmony import */
 
 
-      var _index_3a75d1af_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
-      /*! ./index-3a75d1af.js */
-      "./node_modules/@ionic/core/dist/esm/index-3a75d1af.js");
+      var _index_7e92d917_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! ./index-7e92d917.js */
+      "./node_modules/@ionic/core/dist/esm/index-7e92d917.js");
       /* harmony import */
 
 
@@ -226,7 +226,7 @@
                       this.typeChanged(this.type, undefined);
                       this.sideChanged(); // register this menu with the app's menu controller
 
-                      _index_3a75d1af_js__WEBPACK_IMPORTED_MODULE_7__["m"]._register(this);
+                      _index_7e92d917_js__WEBPACK_IMPORTED_MODULE_7__["m"]._register(this);
 
                       _context.next = 15;
                       return Promise.resolve().then(__webpack_require__.bind(null,
@@ -305,7 +305,7 @@
           value: function disconnectedCallback() {
             this.blocker.destroy();
 
-            _index_3a75d1af_js__WEBPACK_IMPORTED_MODULE_7__["m"]._unregister(this);
+            _index_7e92d917_js__WEBPACK_IMPORTED_MODULE_7__["m"]._unregister(this);
 
             if (this.animation) {
               this.animation.destroy();
@@ -401,7 +401,7 @@
           key: "setOpen",
           value: function setOpen(shouldOpen) {
             var animated = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-            return _index_3a75d1af_js__WEBPACK_IMPORTED_MODULE_7__["m"]._setOpen(this, shouldOpen, animated);
+            return _index_7e92d917_js__WEBPACK_IMPORTED_MODULE_7__["m"]._setOpen(this, shouldOpen, animated);
           }
         }, {
           key: "_setOpen",
@@ -479,7 +479,7 @@
 
 
                       _context4.next = 7;
-                      return _index_3a75d1af_js__WEBPACK_IMPORTED_MODULE_7__["m"]._createAnimation(this.type, this);
+                      return _index_7e92d917_js__WEBPACK_IMPORTED_MODULE_7__["m"]._createAnimation(this.type, this);
 
                     case 7:
                       this.animation = _context4.sent;
@@ -576,7 +576,7 @@
 
             if (this._isOpen) {
               return true; // TODO error
-            } else if (_index_3a75d1af_js__WEBPACK_IMPORTED_MODULE_7__["m"]._getOpenSync()) {
+            } else if (_index_7e92d917_js__WEBPACK_IMPORTED_MODULE_7__["m"]._getOpenSync()) {
               return false;
             }
 
@@ -745,7 +745,7 @@
             }
 
             if (!this.disabled) {
-              _index_3a75d1af_js__WEBPACK_IMPORTED_MODULE_7__["m"]._setActiveMenu(this);
+              _index_7e92d917_js__WEBPACK_IMPORTED_MODULE_7__["m"]._setActiveMenu(this);
             }
 
             Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["k"])(!this.isAnimating, 'can not be animating');
@@ -839,7 +839,7 @@
               switch (_context6.prev = _context6.next) {
                 case 0:
                   _context6.next = 2;
-                  return _index_3a75d1af_js__WEBPACK_IMPORTED_MODULE_7__["m"].get(menu);
+                  return _index_7e92d917_js__WEBPACK_IMPORTED_MODULE_7__["m"].get(menu);
 
                 case 2:
                   menuEl = _context6.sent;
@@ -903,7 +903,7 @@
               while (1) {
                 switch (_context7.prev = _context7.next) {
                   case 0:
-                    return _context7.abrupt("return", _index_3a75d1af_js__WEBPACK_IMPORTED_MODULE_7__["m"].toggle(_this4.menu));
+                    return _context7.abrupt("return", _index_7e92d917_js__WEBPACK_IMPORTED_MODULE_7__["m"].toggle(_this4.menu));
 
                   case 1:
                   case "end":
@@ -1018,7 +1018,7 @@
           this.autoHide = true;
 
           this.onClick = function () {
-            return _index_3a75d1af_js__WEBPACK_IMPORTED_MODULE_7__["m"].toggle(_this5.menu);
+            return _index_7e92d917_js__WEBPACK_IMPORTED_MODULE_7__["m"].toggle(_this5.menu);
           };
         }
 
