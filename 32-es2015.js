@@ -15,8 +15,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index-e806d1f6.js */ "./node_modules/@ionic/core/dist/esm/index-e806d1f6.js");
 /* harmony import */ var _ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ionic-global-9d5c8ee3.js */ "./node_modules/@ionic/core/dist/esm/ionic-global-9d5c8ee3.js");
 /* harmony import */ var _helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers-90f46169.js */ "./node_modules/@ionic/core/dist/esm/helpers-90f46169.js");
-/* harmony import */ var _hardware_back_button_389954a0_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./hardware-back-button-389954a0.js */ "./node_modules/@ionic/core/dist/esm/hardware-back-button-389954a0.js");
-/* harmony import */ var _overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./overlays-7a1610a2.js */ "./node_modules/@ionic/core/dist/esm/overlays-7a1610a2.js");
+/* harmony import */ var _hardware_back_button_4a6b37fb_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./hardware-back-button-4a6b37fb.js */ "./node_modules/@ionic/core/dist/esm/hardware-back-button-4a6b37fb.js");
+/* harmony import */ var _overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./overlays-12c20431.js */ "./node_modules/@ionic/core/dist/esm/overlays-12c20431.js");
 /* harmony import */ var _theme_ff3fc52f_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./theme-ff3fc52f.js */ "./node_modules/@ionic/core/dist/esm/theme-ff3fc52f.js");
 
 
@@ -280,13 +280,13 @@ const Select = class {
         value,
         options: this.createPopoverOptions(this.childOpts, value)
       } });
-    return _overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_4__["c"].create(popoverOpts);
+    return _overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_4__["c"].create(popoverOpts);
   }
   async openActionSheet() {
     const mode = Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);
     const interfaceOptions = this.interfaceOptions;
     const actionSheetOpts = Object.assign(Object.assign({ mode }, interfaceOptions), { buttons: this.createActionSheetButtons(this.childOpts, this.value), cssClass: ['select-action-sheet', interfaceOptions.cssClass] });
-    return _overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_4__["b"].create(actionSheetOpts);
+    return _overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_4__["b"].create(actionSheetOpts);
   }
   async openAlert() {
     const label = this.getLabel();
@@ -310,7 +310,7 @@ const Select = class {
         }
       ], cssClass: ['select-alert', interfaceOptions.cssClass,
         (this.multiple ? 'multiple-select-alert' : 'single-select-alert')] });
-    return _overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_4__["a"].create(alertOpts);
+    return _overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_4__["a"].create(alertOpts);
   }
   /**
    * Close the select interface.
@@ -486,7 +486,7 @@ const SelectPopover = class {
   onSelect(ev) {
     const option = this.options.find(o => o.value === ev.target.value);
     if (option) {
-      Object(_overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_4__["s"])(option.handler);
+      Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_4__["s"])(option.handler);
     }
   }
   render() {
