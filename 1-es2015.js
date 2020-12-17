@@ -17,8 +17,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _gesture_controller_31cb6bb9_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./gesture-controller-31cb6bb9.js */ "./node_modules/@ionic/core/dist/esm/gesture-controller-31cb6bb9.js");
 /* harmony import */ var _index_f49d994d_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./index-f49d994d.js */ "./node_modules/@ionic/core/dist/esm/index-f49d994d.js");
 /* harmony import */ var _index_9e3fe806_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./index-9e3fe806.js */ "./node_modules/@ionic/core/dist/esm/index-9e3fe806.js");
-/* harmony import */ var _hardware_back_button_4a6b37fb_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./hardware-back-button-4a6b37fb.js */ "./node_modules/@ionic/core/dist/esm/hardware-back-button-4a6b37fb.js");
-/* harmony import */ var _overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./overlays-12c20431.js */ "./node_modules/@ionic/core/dist/esm/overlays-12c20431.js");
+/* harmony import */ var _hardware_back_button_389954a0_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./hardware-back-button-389954a0.js */ "./node_modules/@ionic/core/dist/esm/hardware-back-button-389954a0.js");
+/* harmony import */ var _overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./overlays-7a1610a2.js */ "./node_modules/@ionic/core/dist/esm/overlays-7a1610a2.js");
 /* harmony import */ var _haptic_27b3f981_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./haptic-27b3f981.js */ "./node_modules/@ionic/core/dist/esm/haptic-27b3f981.js");
 /* harmony import */ var _button_active_a6787d69_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./button-active-a6787d69.js */ "./node_modules/@ionic/core/dist/esm/button-active-a6787d69.js");
 /* harmony import */ var _theme_ff3fc52f_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./theme-ff3fc52f.js */ "./node_modules/@ionic/core/dist/esm/theme-ff3fc52f.js");
@@ -173,11 +173,11 @@ const Alert = class {
      */
     this.animated = true;
     this.onBackdropTap = () => {
-      this.dismiss(undefined, _overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_8__["B"]);
+      this.dismiss(undefined, _overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_8__["B"]);
     };
     this.dispatchCancelHandler = (ev) => {
       const role = ev.detail.role;
-      if (Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_8__["i"])(role)) {
+      if (Object(_overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_8__["i"])(role)) {
         const cancelButton = this.processedButtons.find(b => b.role === 'cancel');
         this.callButtonHandler(cancelButton);
       }
@@ -266,7 +266,7 @@ const Alert = class {
     }));
   }
   connectedCallback() {
-    Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_8__["e"])(this.el);
+    Object(_overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_8__["e"])(this.el);
   }
   componentWillLoad() {
     this.inputsChanged();
@@ -295,7 +295,7 @@ const Alert = class {
    * Present the alert overlay after it has been created.
    */
   present() {
-    return Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_8__["d"])(this, 'alertEnter', iosEnterAnimation, mdEnterAnimation);
+    return Object(_overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_8__["d"])(this, 'alertEnter', iosEnterAnimation, mdEnterAnimation);
   }
   /**
    * Dismiss the alert overlay after it has been presented.
@@ -307,19 +307,19 @@ const Alert = class {
    * Some examples include: ``"cancel"`, `"destructive"`, "selected"`, and `"backdrop"`.
    */
   dismiss(data, role) {
-    return Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_8__["f"])(this, data, role, 'alertLeave', iosLeaveAnimation, mdLeaveAnimation);
+    return Object(_overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_8__["f"])(this, data, role, 'alertLeave', iosLeaveAnimation, mdLeaveAnimation);
   }
   /**
    * Returns a promise that resolves when the alert did dismiss.
    */
   onDidDismiss() {
-    return Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_8__["g"])(this.el, 'ionAlertDidDismiss');
+    return Object(_overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_8__["g"])(this.el, 'ionAlertDidDismiss');
   }
   /**
    * Returns a promise that resolves when the alert will dismiss.
    */
   onWillDismiss() {
-    return Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_8__["g"])(this.el, 'ionAlertWillDismiss');
+    return Object(_overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_8__["g"])(this.el, 'ionAlertWillDismiss');
   }
   rbClick(selectedInput) {
     for (const input of this.processedInputs) {
@@ -327,18 +327,18 @@ const Alert = class {
       input.tabindex = input === selectedInput ? 0 : -1;
     }
     this.activeId = selectedInput.id;
-    Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_8__["s"])(selectedInput.handler, selectedInput);
+    Object(_overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_8__["s"])(selectedInput.handler, selectedInput);
     Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["j"])(this);
   }
   cbClick(selectedInput) {
     selectedInput.checked = !selectedInput.checked;
-    Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_8__["s"])(selectedInput.handler, selectedInput);
+    Object(_overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_8__["s"])(selectedInput.handler, selectedInput);
     Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["j"])(this);
   }
   buttonClick(button) {
     const role = button.role;
     const values = this.getValues();
-    if (Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_8__["i"])(role)) {
+    if (Object(_overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_8__["i"])(role)) {
       return this.dismiss({ values }, role);
     }
     const returnData = this.callButtonHandler(button, values);
@@ -351,7 +351,7 @@ const Alert = class {
     if (button && button.handler) {
       // a handler has been provided, execute it
       // pass the handler the values from the inputs
-      const returnData = Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_8__["s"])(button.handler, data);
+      const returnData = Object(_overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_8__["s"])(button.handler, data);
       if (returnData === false) {
         // if the return value of the handler is false then do not dismiss
         return false;

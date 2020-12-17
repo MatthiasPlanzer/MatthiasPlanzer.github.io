@@ -1,15 +1,15 @@
 (function () {
   function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+  function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+  function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
   function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-  function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-  function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
   (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[26], {
     /***/
@@ -246,43 +246,11 @@
       // -----------------------------
 
 
-      var shouldUseNativeRefresher = /*#__PURE__*/function () {
-        var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(referenceEl, mode) {
-          var refresherContent, pullingSpinner, refreshingSpinner;
-          return regeneratorRuntime.wrap(function _callee$(_context) {
-            while (1) {
-              switch (_context.prev = _context.next) {
-                case 0:
-                  refresherContent = referenceEl.querySelector('ion-refresher-content');
-
-                  if (refresherContent) {
-                    _context.next = 3;
-                    break;
-                  }
-
-                  return _context.abrupt("return", Promise.resolve(false));
-
-                case 3:
-                  _context.next = 5;
-                  return refresherContent.componentOnReady();
-
-                case 5:
-                  pullingSpinner = refresherContent.querySelector('.refresher-pulling ion-spinner');
-                  refreshingSpinner = refresherContent.querySelector('.refresher-refreshing ion-spinner');
-                  return _context.abrupt("return", pullingSpinner !== null && refreshingSpinner !== null && (mode === 'ios' && Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["i"])('mobile') && referenceEl.style.webkitOverflowScrolling !== undefined || mode === 'md'));
-
-                case 8:
-                case "end":
-                  return _context.stop();
-              }
-            }
-          }, _callee);
-        }));
-
-        return function shouldUseNativeRefresher(_x, _x2) {
-          return _ref.apply(this, arguments);
-        };
-      }();
+      var shouldUseNativeRefresher = function shouldUseNativeRefresher(referenceEl, mode) {
+        var pullingSpinner = referenceEl.querySelector('ion-refresher-content .refresher-pulling ion-spinner');
+        var refreshingSpinner = referenceEl.querySelector('ion-refresher-content .refresher-refreshing ion-spinner');
+        return pullingSpinner !== null && refreshingSpinner !== null && (mode === 'ios' && Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["i"])('mobile') && referenceEl.style.webkitOverflowScrolling !== undefined || mode === 'md');
+      };
 
       var transitionEndAsync = function transitionEndAsync(el) {
         var expectedDuration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
@@ -430,40 +398,16 @@
           }
         }, {
           key: "checkNativeRefresher",
-          value: function () {
-            var _checkNativeRefresher = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-              var useNativeRefresher, contentEl;
-              return regeneratorRuntime.wrap(function _callee2$(_context2) {
-                while (1) {
-                  switch (_context2.prev = _context2.next) {
-                    case 0:
-                      _context2.next = 2;
-                      return shouldUseNativeRefresher(this.el, Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this));
+          value: function checkNativeRefresher() {
+            var useNativeRefresher = shouldUseNativeRefresher(this.el, Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this));
 
-                    case 2:
-                      useNativeRefresher = _context2.sent;
-
-                      if (useNativeRefresher && !this.nativeRefresher) {
-                        contentEl = this.el.closest('ion-content');
-                        this.setupNativeRefresher(contentEl);
-                      } else if (!useNativeRefresher) {
-                        this.destroyNativeRefresher();
-                      }
-
-                    case 4:
-                    case "end":
-                      return _context2.stop();
-                  }
-                }
-              }, _callee2, this);
-            }));
-
-            function checkNativeRefresher() {
-              return _checkNativeRefresher.apply(this, arguments);
+            if (useNativeRefresher && !this.nativeRefresher) {
+              var contentEl = this.el.closest('ion-content');
+              this.setupNativeRefresher(contentEl);
+            } else if (!useNativeRefresher) {
+              this.destroyNativeRefresher();
             }
-
-            return checkNativeRefresher;
-          }()
+          }
         }, {
           key: "destroyNativeRefresher",
           value: function destroyNativeRefresher() {
@@ -477,27 +421,27 @@
         }, {
           key: "resetNativeRefresher",
           value: function () {
-            var _resetNativeRefresher = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(el, state) {
-              return regeneratorRuntime.wrap(function _callee3$(_context3) {
+            var _resetNativeRefresher = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(el, state) {
+              return regeneratorRuntime.wrap(function _callee$(_context) {
                 while (1) {
-                  switch (_context3.prev = _context3.next) {
+                  switch (_context.prev = _context.next) {
                     case 0:
                       this.state = state;
 
                       if (!(Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this) === 'ios')) {
-                        _context3.next = 6;
+                        _context.next = 6;
                         break;
                       }
 
-                      _context3.next = 4;
+                      _context.next = 4;
                       return translateElement(el, undefined);
 
                     case 4:
-                      _context3.next = 8;
+                      _context.next = 8;
                       break;
 
                     case 6:
-                      _context3.next = 8;
+                      _context.next = 8;
                       return transitionEndAsync(this.el.querySelector('.refresher-refreshing-icon'), 200);
 
                     case 8:
@@ -515,13 +459,13 @@
 
                     case 15:
                     case "end":
-                      return _context3.stop();
+                      return _context.stop();
                   }
                 }
-              }, _callee3, this);
+              }, _callee, this);
             }));
 
-            function resetNativeRefresher(_x3, _x4) {
+            function resetNativeRefresher(_x, _x2) {
               return _resetNativeRefresher.apply(this, arguments);
             }
 
@@ -530,13 +474,13 @@
         }, {
           key: "setupiOSNativeRefresher",
           value: function () {
-            var _setupiOSNativeRefresher = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(pullingSpinner, refreshingSpinner) {
+            var _setupiOSNativeRefresher = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(pullingSpinner, refreshingSpinner) {
               var _this = this;
 
               var ticks, MAX_PULL, NUM_TICKS;
-              return regeneratorRuntime.wrap(function _callee4$(_context4) {
+              return regeneratorRuntime.wrap(function _callee2$(_context2) {
                 while (1) {
-                  switch (_context4.prev = _context4.next) {
+                  switch (_context2.prev = _context2.next) {
                     case 0:
                       this.elementToTransform = this.scrollEl;
                       ticks = pullingSpinner.shadowRoot.querySelectorAll('svg');
@@ -634,13 +578,13 @@
                       };
 
                       this.scrollEl.addEventListener('scroll', this.scrollListenerCallback);
-                      _context4.next = 9;
+                      _context2.next = 9;
                       return Promise.resolve().then(__webpack_require__.bind(null,
                       /*! ./index-f49d994d.js */
                       "./node_modules/@ionic/core/dist/esm/index-f49d994d.js"));
 
                     case 9:
-                      this.gesture = _context4.sent.createGesture({
+                      this.gesture = _context2.sent.createGesture({
                         el: this.scrollEl,
                         gestureName: 'refresher',
                         gesturePriority: 31,
@@ -690,13 +634,13 @@
 
                     case 11:
                     case "end":
-                      return _context4.stop();
+                      return _context2.stop();
                   }
                 }
-              }, _callee4, this);
+              }, _callee2, this);
             }));
 
-            function setupiOSNativeRefresher(_x5, _x6) {
+            function setupiOSNativeRefresher(_x3, _x4) {
               return _setupiOSNativeRefresher.apply(this, arguments);
             }
 
@@ -705,13 +649,13 @@
         }, {
           key: "setupMDNativeRefresher",
           value: function () {
-            var _setupMDNativeRefresher = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(contentEl, pullingSpinner, refreshingSpinner) {
+            var _setupMDNativeRefresher = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(contentEl, pullingSpinner, refreshingSpinner) {
               var _this2 = this;
 
               var circle, pullingRefresherIcon, refreshingCircle;
-              return regeneratorRuntime.wrap(function _callee6$(_context6) {
+              return regeneratorRuntime.wrap(function _callee4$(_context4) {
                 while (1) {
-                  switch (_context6.prev = _context6.next) {
+                  switch (_context4.prev = _context4.next) {
                     case 0:
                       circle = Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["g"])(pullingSpinner).querySelector('circle');
                       pullingRefresherIcon = this.el.querySelector('ion-refresher-content .refresher-pulling-icon');
@@ -726,13 +670,13 @@
                         });
                       }
 
-                      _context6.next = 6;
+                      _context4.next = 6;
                       return Promise.resolve().then(__webpack_require__.bind(null,
                       /*! ./index-f49d994d.js */
                       "./node_modules/@ionic/core/dist/esm/index-f49d994d.js"));
 
                     case 6:
-                      this.gesture = _context6.sent.createGesture({
+                      this.gesture = _context4.sent.createGesture({
                         el: this.scrollEl,
                         gestureName: 'refresher',
                         gesturePriority: 31,
@@ -818,14 +762,14 @@
 
                           _this2.animations.push(snapBackAnimation);
 
-                          Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["c"])( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
-                            return regeneratorRuntime.wrap(function _callee5$(_context5) {
+                          Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["c"])( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+                            return regeneratorRuntime.wrap(function _callee3$(_context3) {
                               while (1) {
-                                switch (_context5.prev = _context5.next) {
+                                switch (_context3.prev = _context3.next) {
                                   case 0:
                                     pullingRefresherIcon.style.setProperty('--ion-pulling-refresher-translate', "".concat(progress * 100, "px"));
                                     ev.data.animation.progressEnd();
-                                    _context5.next = 4;
+                                    _context3.next = 4;
                                     return snapBackAnimation.play();
 
                                   case 4:
@@ -835,10 +779,10 @@
 
                                   case 6:
                                   case "end":
-                                    return _context5.stop();
+                                    return _context3.stop();
                                 }
                               }
-                            }, _callee5);
+                            }, _callee3);
                           })));
                         }
                       });
@@ -846,13 +790,13 @@
 
                     case 8:
                     case "end":
-                      return _context6.stop();
+                      return _context4.stop();
                   }
                 }
-              }, _callee6, this);
+              }, _callee4, this);
             }));
 
-            function setupMDNativeRefresher(_x7, _x8, _x9) {
+            function setupMDNativeRefresher(_x5, _x6, _x7) {
               return _setupMDNativeRefresher.apply(this, arguments);
             }
 
@@ -861,28 +805,20 @@
         }, {
           key: "setupNativeRefresher",
           value: function () {
-            var _setupNativeRefresher = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(contentEl) {
+            var _setupNativeRefresher = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(contentEl) {
               var pullingSpinner, refreshingSpinner;
-              return regeneratorRuntime.wrap(function _callee7$(_context7) {
+              return regeneratorRuntime.wrap(function _callee5$(_context5) {
                 while (1) {
-                  switch (_context7.prev = _context7.next) {
+                  switch (_context5.prev = _context5.next) {
                     case 0:
                       if (!(this.scrollListenerCallback || !contentEl || this.nativeRefresher || !this.scrollEl)) {
-                        _context7.next = 2;
+                        _context5.next = 2;
                         break;
                       }
 
-                      return _context7.abrupt("return");
+                      return _context5.abrupt("return");
 
                     case 2:
-                      /**
-                       * If using non-native refresher before make sure
-                       * we clean up any old CSS. This can happen when
-                       * a user manually calls the refresh method in a
-                       * component create callback before the native
-                       * refresher is setup.
-                       */
-                      this.setCss(0, '', false, '');
                       this.nativeRefresher = true;
                       pullingSpinner = this.el.querySelector('ion-refresher-content .refresher-pulling ion-spinner');
                       refreshingSpinner = this.el.querySelector('ion-refresher-content .refresher-refreshing ion-spinner');
@@ -893,15 +829,15 @@
                         this.setupMDNativeRefresher(contentEl, pullingSpinner, refreshingSpinner);
                       }
 
-                    case 7:
+                    case 6:
                     case "end":
-                      return _context7.stop();
+                      return _context5.stop();
                   }
                 }
-              }, _callee7, this);
+              }, _callee5, this);
             }));
 
-            function setupNativeRefresher(_x10) {
+            function setupNativeRefresher(_x8) {
               return _setupNativeRefresher.apply(this, arguments);
             }
 
@@ -915,65 +851,62 @@
         }, {
           key: "connectedCallback",
           value: function () {
-            var _connectedCallback = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
+            var _connectedCallback = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
               var _this3 = this;
 
               var contentEl;
-              return regeneratorRuntime.wrap(function _callee8$(_context8) {
+              return regeneratorRuntime.wrap(function _callee6$(_context6) {
                 while (1) {
-                  switch (_context8.prev = _context8.next) {
+                  switch (_context6.prev = _context6.next) {
                     case 0:
                       if (!(this.el.getAttribute('slot') !== 'fixed')) {
-                        _context8.next = 3;
+                        _context6.next = 3;
                         break;
                       }
 
                       console.error('Make sure you use: <ion-refresher slot="fixed">');
-                      return _context8.abrupt("return");
+                      return _context6.abrupt("return");
 
                     case 3:
                       contentEl = this.el.closest('ion-content');
 
                       if (contentEl) {
-                        _context8.next = 7;
+                        _context6.next = 7;
                         break;
                       }
 
                       console.error('<ion-refresher> must be used inside an <ion-content>');
-                      return _context8.abrupt("return");
+                      return _context6.abrupt("return");
 
                     case 7:
-                      _context8.next = 9;
+                      _context6.next = 9;
                       return contentEl.componentOnReady();
 
                     case 9:
-                      _context8.next = 11;
+                      _context6.next = 11;
                       return contentEl.getScrollElement();
 
                     case 11:
-                      this.scrollEl = _context8.sent;
+                      this.scrollEl = _context6.sent;
                       this.backgroundContentEl = Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["g"])(contentEl).querySelector('#background-content');
-                      _context8.next = 15;
-                      return shouldUseNativeRefresher(this.el, Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this));
 
-                    case 15:
-                      if (!_context8.sent) {
-                        _context8.next = 19;
+                      if (!shouldUseNativeRefresher(this.el, Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this))) {
+                        _context6.next = 17;
                         break;
                       }
 
                       this.setupNativeRefresher(contentEl);
-                      _context8.next = 23;
+                      _context6.next = 21;
                       break;
 
-                    case 19:
-                      _context8.next = 21;
+                    case 17:
+                      _context6.next = 19;
                       return Promise.resolve().then(__webpack_require__.bind(null,
                       /*! ./index-f49d994d.js */
                       "./node_modules/@ionic/core/dist/esm/index-f49d994d.js"));
 
-                    case 21:
-                      this.gesture = _context8.sent.createGesture({
+                    case 19:
+                      this.gesture = _context6.sent.createGesture({
                         el: contentEl,
                         gestureName: 'refresher',
                         gesturePriority: 31,
@@ -995,12 +928,12 @@
                       });
                       this.disabledChanged();
 
-                    case 23:
+                    case 21:
                     case "end":
-                      return _context8.stop();
+                      return _context6.stop();
                   }
                 }
-              }, _callee8, this);
+              }, _callee6, this);
             }));
 
             function connectedCallback() {
@@ -1033,12 +966,12 @@
         }, {
           key: "complete",
           value: function () {
-            var _complete = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
+            var _complete = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
               var _this4 = this;
 
-              return regeneratorRuntime.wrap(function _callee9$(_context9) {
+              return regeneratorRuntime.wrap(function _callee7$(_context7) {
                 while (1) {
-                  switch (_context9.prev = _context9.next) {
+                  switch (_context7.prev = _context7.next) {
                     case 0:
                       if (this.nativeRefresher) {
                         this.needsCompletion = true; // Do not reset scroll el until user removes pointer from screen
@@ -1060,10 +993,10 @@
 
                     case 1:
                     case "end":
-                      return _context9.stop();
+                      return _context7.stop();
                   }
                 }
-              }, _callee9, this);
+              }, _callee7, this);
             }));
 
             function complete() {
@@ -1079,12 +1012,12 @@
         }, {
           key: "cancel",
           value: function () {
-            var _cancel = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
+            var _cancel = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
               var _this5 = this;
 
-              return regeneratorRuntime.wrap(function _callee10$(_context10) {
+              return regeneratorRuntime.wrap(function _callee8$(_context8) {
                 while (1) {
-                  switch (_context10.prev = _context10.next) {
+                  switch (_context8.prev = _context8.next) {
                     case 0:
                       if (this.nativeRefresher) {
                         // Do not reset scroll el until user removes pointer from screen
@@ -1105,10 +1038,10 @@
 
                     case 1:
                     case "end":
-                      return _context10.stop();
+                      return _context8.stop();
                   }
                 }
-              }, _callee10, this);
+              }, _callee8, this);
             }));
 
             function cancel() {
