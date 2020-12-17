@@ -18,7 +18,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-tabs>\n\n  <ion-tab-bar slot=\"bottom\">\n    <ion-tab-button tab=\"tab1\">\n      <ion-icon name=\"triangle\"></ion-icon>\n      <ion-label>Übersicht</ion-label>\n    </ion-tab-button>\n\n    <ion-tab-button tab=\"scanner\">\n      <ion-icon name=\"scan\"></ion-icon>\n      <ion-label>Barcode-Scanner</ion-label>\n    </ion-tab-button>\n\n    <ion-tab-button tab=\"tab3\">\n      <ion-icon name=\"settings\"></ion-icon>\n      <ion-label>Einstellungen</ion-label>\n    </ion-tab-button>\n  </ion-tab-bar>\n\n</ion-tabs>\n";
+      __webpack_exports__["default"] = "<ion-tabs>\n\n  <ion-tab-bar slot=\"bottom\">\n    <ion-tab-button tab=\"overview\">\n      <ion-icon name=\"triangle\"></ion-icon>\n      <ion-label>Übersicht</ion-label>\n    </ion-tab-button>\n\n    <ion-tab-button tab=\"scanner\">\n      <ion-icon name=\"scan\"></ion-icon>\n      <ion-label>Barcode-Scanner</ion-label>\n    </ion-tab-button>\n\n    <ion-tab-button tab=\"tab3\">\n      <ion-icon name=\"settings\"></ion-icon>\n      <ion-label>Einstellungen</ion-label>\n    </ion-tab-button>\n  </ion-tab-bar>\n\n</ion-tabs>\n";
       /***/
     },
 
@@ -70,14 +70,14 @@
         path: "tabs",
         component: _tabs_page__WEBPACK_IMPORTED_MODULE_3__["TabsPage"],
         children: [{
-          path: "tab1",
+          path: "overview",
           loadChildren: function loadChildren() {
-            return Promise.all(
-            /*! import() | tab1-tab1-module */
-            [__webpack_require__.e("common"), __webpack_require__.e("tab1-tab1-module")]).then(__webpack_require__.bind(null,
-            /*! ../tab1/tab1.module */
-            "./src/app/tab1/tab1.module.ts")).then(function (m) {
-              return m.Tab1PageModule;
+            return __webpack_require__.e(
+            /*! import() | overview-overview-module */
+            "overview-overview-module").then(__webpack_require__.bind(null,
+            /*! ../overview/overview.module */
+            "./src/app/overview/overview.module.ts")).then(function (m) {
+              return m.OverviewPageModule;
             });
           }
         }, {
@@ -94,9 +94,9 @@
         }, {
           path: "tab3",
           loadChildren: function loadChildren() {
-            return Promise.all(
+            return __webpack_require__.e(
             /*! import() | tab3-tab3-module */
-            [__webpack_require__.e("common"), __webpack_require__.e("tab3-tab3-module")]).then(__webpack_require__.bind(null,
+            "tab3-tab3-module").then(__webpack_require__.bind(null,
             /*! ../tab3/tab3.module */
             "./src/app/tab3/tab3.module.ts")).then(function (m) {
               return m.Tab3PageModule;
@@ -104,12 +104,12 @@
           }
         }, {
           path: "",
-          redirectTo: "/tabs/tab1",
+          redirectTo: "/tabs/overview",
           pathMatch: "full"
         }]
       }, {
         path: "",
-        redirectTo: "/tabs/tab1",
+        redirectTo: "/tabs/overview",
         pathMatch: "full"
       }];
 

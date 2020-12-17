@@ -64,15 +64,15 @@
       /* harmony import */
 
 
-      var _hardware_back_button_4a6b37fb_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
-      /*! ./hardware-back-button-4a6b37fb.js */
-      "./node_modules/@ionic/core/dist/esm/hardware-back-button-4a6b37fb.js");
+      var _hardware_back_button_389954a0_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! ./hardware-back-button-389954a0.js */
+      "./node_modules/@ionic/core/dist/esm/hardware-back-button-389954a0.js");
       /* harmony import */
 
 
-      var _overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
-      /*! ./overlays-12c20431.js */
-      "./node_modules/@ionic/core/dist/esm/overlays-12c20431.js");
+      var _overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! ./overlays-7a1610a2.js */
+      "./node_modules/@ionic/core/dist/esm/overlays-7a1610a2.js");
       /* harmony import */
 
 
@@ -217,14 +217,14 @@
           this.animated = true;
 
           this.onBackdropTap = function () {
-            _this.dismiss(undefined, _overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_6__["B"]);
+            _this.dismiss(undefined, _overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_6__["B"]);
           };
         }
 
         _createClass(Loading, [{
           key: "connectedCallback",
           value: function connectedCallback() {
-            Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_6__["e"])(this.el);
+            Object(_overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_6__["e"])(this.el);
           }
         }, {
           key: "componentWillLoad",
@@ -249,7 +249,7 @@
                   switch (_context.prev = _context.next) {
                     case 0:
                       _context.next = 2;
-                      return Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_6__["d"])(this, 'loadingEnter', iosEnterAnimation, mdEnterAnimation, undefined);
+                      return Object(_overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_6__["d"])(this, 'loadingEnter', iosEnterAnimation, mdEnterAnimation, undefined);
 
                     case 2:
                       if (this.duration > 0) {
@@ -289,7 +289,7 @@
               clearTimeout(this.durationTimeout);
             }
 
-            return Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_6__["f"])(this, data, role, 'loadingLeave', iosLeaveAnimation, mdLeaveAnimation);
+            return Object(_overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_6__["f"])(this, data, role, 'loadingLeave', iosLeaveAnimation, mdLeaveAnimation);
           }
           /**
            * Returns a promise that resolves when the loading did dismiss.
@@ -298,7 +298,7 @@
         }, {
           key: "onDidDismiss",
           value: function onDidDismiss() {
-            return Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_6__["g"])(this.el, 'ionLoadingDidDismiss');
+            return Object(_overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_6__["g"])(this.el, 'ionLoadingDidDismiss');
           }
           /**
            * Returns a promise that resolves when the loading will dismiss.
@@ -307,7 +307,7 @@
         }, {
           key: "onWillDismiss",
           value: function onWillDismiss() {
-            return Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_6__["g"])(this.el, 'ionLoadingWillDismiss');
+            return Object(_overlays_7a1610a2_js__WEBPACK_IMPORTED_MODULE_6__["g"])(this.el, 'ionLoadingWillDismiss');
           }
         }, {
           key: "render",

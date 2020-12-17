@@ -22,7 +22,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<div *ngIf=\"product\">\n  <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css\" integrity=\"sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2\" crossorigin=\"anonymous\">\n  <ion-header translucent>\n    <ion-toolbar>\n      <ion-title>{{ product.product_name }}</ion-title>\n      <ion-buttons slot=\"end\">\n        <ion-button (click)=\"dismissModal()\">Schliessen</ion-button>\n      </ion-buttons>\n    </ion-toolbar>\n  </ion-header>\n  <ion-content fullscreen>\n    <img [src]=\"product.image_url\">\n    <button (click)=\"confirmAdding()\">Produkt hinzufügen</button>\n    <table class=\"table\">\n      <thead>\n        <tr>\n          <th>Menge</th>\n          <th>Nährwert</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr>\n          <td>Kohlenhydrate</td>\n          <td>{{ product.nutriments.carbohydrates }}</td>\n        </tr>\n        <tr>\n          <td>davon Zucker</td>\n          <td>{{ product.nutriments.fat }}</td>\n        </tr>\n        <tr>\n          <td>Energie</td>\n          <td>{{ product.nutriments.energy }}kJ / {{ product.nutriments.energy-kcal }}kJ</td>\n        </tr>\n        <tr>\n          <td>Fett</td>\n          <td>{{ product.nutriments.fat }}</td>\n        </tr>\n      </tbody>\n    </table>\n  </ion-content>\n</div>";
+      __webpack_exports__["default"] = "<div *ngIf=\"product\">\n  <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css\" integrity=\"sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2\" crossorigin=\"anonymous\">\n  <ion-header translucent>\n    <ion-toolbar>\n      <ion-title>{{ product.product_name }}</ion-title>\n      <ion-buttons slot=\"end\">\n        <ion-button (click)=\"dismissModal()\">Schliessen</ion-button>\n      </ion-buttons>\n    </ion-toolbar>\n  </ion-header>\n  <ion-content fullscreen>\n    <img [src]=\"product.image_url\">\n    <button (click)=\"confirmAdding()\">Produkt hinzufügen</button>\n    <table class=\"table\">\n      <thead>\n        <tr>\n          <th>Menge</th>\n          <th>Nährwert</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr>\n          <td>Kohlenhydrate</td>\n          <td>{{ product.nutriments.carbohydrates }}</td>\n        </tr>\n        <tr>\n          <td>davon Zucker</td>\n          <td>{{ product.nutriments.fat }}</td>\n        </tr>\n        <tr>\n          <td>Energie</td>\n          <td>{{ product.nutriments.energy }}kJ / {{ product.nutriments['energy-kcal'] }}kJ</td>\n        </tr>\n        <tr>\n          <td>Fett</td>\n          <td>{{ product.nutriments.fat }}</td>\n        </tr>\n      </tbody>\n    </table>\n  </ion-content>\n</div>";
       /***/
     },
 
@@ -42,7 +42,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-title>Barcode-Scanner</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content *ngIf=\"enabled\">\n  <zxing-scanner [(device)]=\"currentDevice\" (scanSuccess)=\"onCodeResult($event)\"\n  [formats]=\"formatsEnabled\"  [enable]=\"enabled\" (permissionResponse)=\"onHasPermission($event)\"\n  (camerasFound)=\"onCamerasFound($event)\"></zxing-scanner>\n</ion-content>\n";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-title>Barcode-Scanner</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content *ngIf=\"enabled\">\n  <zxing-scanner [(device)]=\"currentDevice\" (scanSuccess)=\"onCodeResult($event)\"\n  [formats]=\"formatsEnabled\"  [enable]=\"enabled\" (permissionResponse)=\"onHasPermission($event)\"\n  (camerasFound)=\"onCamerasFound($event)\" tryHarder=\"true\"></zxing-scanner>\n</ion-content>\n";
       /***/
     },
 
@@ -127,7 +127,11 @@
                 while (1) {
                   switch (_context.prev = _context.next) {
                     case 0:
-                      console.log(this.code);
+                      if (!this.code) {
+                        _context.next = 6;
+                        break;
+                      }
+
                       _context.next = 3;
                       return this.productsService.getProductDetails(this.code);
 
@@ -512,6 +516,7 @@
           key: "onCodeResult",
           value: function onCodeResult(resultString) {
             this.qrResultString = resultString;
+            console.log(resultString);
             var errorDialog = this.errorDialog.bind(this);
             var generateModal = this.generateModal.bind(this);
 
@@ -520,7 +525,6 @@
               this.productsService.getProductDetails(resultString).then(function () {
                 generateModal();
               })["catch"](function (error) {
-                console.log(error);
                 errorDialog();
               });
             }

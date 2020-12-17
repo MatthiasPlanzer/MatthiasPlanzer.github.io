@@ -299,6 +299,10 @@ const routes = [
         path: "scanner",
         loadChildren: () => __webpack_require__.e(/*! import() | scanner-scanner-module */ "scanner-scanner-module").then(__webpack_require__.bind(null, /*! ./scanner/scanner.module */ "./src/app/scanner/scanner.module.ts")).then((m) => m.ScannerPageModule),
     },
+    {
+        path: 'overview',
+        loadChildren: () => __webpack_require__.e(/*! import() | overview-overview-module */ "overview-overview-module").then(__webpack_require__.bind(null, /*! ./overview/overview.module */ "./src/app/overview/overview.module.ts")).then(m => m.OverviewPageModule)
+    },
 ];
 let AppRoutingModule = class AppRoutingModule {
 };
@@ -474,31 +478,46 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
 /* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/__ivy_ngcc__/fesm2015/ionic-storage.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
 var ProductsService_1;
 
 
 
 
+
 let ProductsService = ProductsService_1 = class ProductsService {
+    // don't automatically do something on every page, for performance and code cleanness reasons
     constructor(storage, httpClient) {
         this.storage = storage;
         this.httpClient = httpClient;
-        this.storage.get("products").then(function (products) {
+        this.productSubject = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
+    }
+    productListChange() {
+        return this.productSubject.asObservable();
+    }
+    onProductListUpdate() {
+        this.productSubject.next();
+    }
+    getAllProducts() {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            let products = yield this.storage.get("products");
             if (products) {
-                ProductsService_1.products = products;
+                return products;
             }
-            console.log(products, ProductsService_1.products);
+            else {
+                return null;
+            }
         });
     }
     getProductDetails(barcode) {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             const result = yield this.httpClient.get(ProductsService_1.APIUrl.replace('[]', barcode))
                 .toPromise();
-            if (result.status === 1 && result.product) {
+            if (result && result.status === 1 && result.product) {
                 return result.product;
             }
             else {
-                return null;
+                throw new Error("Product not found");
             }
         });
     }
@@ -506,21 +525,20 @@ let ProductsService = ProductsService_1 = class ProductsService {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             // var product = await this.getProductDetails(barcode);
             if (product !== null) {
-                ProductsService_1.products.push(product);
+                product.addDate = new Date();
+                let all = yield this.getAllProducts();
+                all.push(product);
+                this.storage.set("products", all);
+                this.onProductListUpdate();
+                return true;
             }
             else {
                 return false;
             }
-            this.updateStorage();
-            return true;
         });
-    }
-    updateStorage() {
-        this.storage.set("products", ProductsService_1.products);
     }
 };
 ProductsService.APIUrl = "https://de.openfoodfacts.org/api/v0/product/[].json";
-ProductsService.products = [];
 ProductsService.ctorParameters = () => [
     { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_3__["Storage"] },
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] }

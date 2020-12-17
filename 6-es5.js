@@ -186,7 +186,6 @@
           this.inItem = false;
           this.inListHeader = false;
           this.inToolbar = false;
-          this.inheritedAttributes = {};
           /**
            * The type of button.
            */
@@ -250,7 +249,6 @@
             this.inToolbar = !!this.el.closest('ion-buttons');
             this.inListHeader = !!this.el.closest('ion-list-header');
             this.inItem = !!this.el.closest('ion-item') || !!this.el.closest('ion-item-divider');
-            this.inheritedAttributes = Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["i"])(this.el, ['aria-label']);
           }
         }, {
           key: "render",
@@ -269,8 +267,7 @@
                 expand = this.expand,
                 hasIconOnly = this.hasIconOnly,
                 shape = this.shape,
-                strong = this.strong,
-                inheritedAttributes = this.inheritedAttributes;
+                strong = this.strong;
             var finalSize = size === undefined && this.inItem ? 'small' : size;
             var TagType = href === undefined ? 'button' : 'a';
             var attrs = TagType === 'button' ? {
@@ -297,7 +294,7 @@
               disabled: disabled,
               onFocus: this.onFocus,
               onBlur: this.onBlur
-            }, inheritedAttributes), Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("span", {
+            }), Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("span", {
               "class": "button-inner"
             }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", {
               name: "icon-only"

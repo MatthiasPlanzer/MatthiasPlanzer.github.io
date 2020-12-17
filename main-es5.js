@@ -197,6 +197,17 @@
             return m.ScannerPageModule;
           });
         }
+      }, {
+        path: 'overview',
+        loadChildren: function loadChildren() {
+          return __webpack_require__.e(
+          /*! import() | overview-overview-module */
+          "overview-overview-module").then(__webpack_require__.bind(null,
+          /*! ./overview/overview.module */
+          "./src/app/overview/overview.module.ts")).then(function (m) {
+            return m.OverviewPageModule;
+          });
+        }
       }];
 
       var AppRoutingModule = function AppRoutingModule() {
@@ -525,45 +536,56 @@
       var _ionic_storage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! @ionic/storage */
       "./node_modules/@ionic/storage/__ivy_ngcc__/fesm2015/ionic-storage.js");
+      /* harmony import */
+
+
+      var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! rxjs */
+      "./node_modules/rxjs/_esm2015/index.js");
 
       var ProductsService_1;
 
       var ProductsService = ProductsService_1 = /*#__PURE__*/function () {
+        // don't automatically do something on every page, for performance and code cleanness reasons
         function ProductsService(storage, httpClient) {
           _classCallCheck(this, ProductsService);
 
           this.storage = storage;
           this.httpClient = httpClient;
-          this.storage.get("products").then(function (products) {
-            if (products) {
-              ProductsService_1.products = products;
-            }
-
-            console.log(products, ProductsService_1.products);
-          });
+          this.productSubject = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
         }
 
         _createClass(ProductsService, [{
-          key: "getProductDetails",
-          value: function getProductDetails(barcode) {
+          key: "productListChange",
+          value: function productListChange() {
+            return this.productSubject.asObservable();
+          }
+        }, {
+          key: "onProductListUpdate",
+          value: function onProductListUpdate() {
+            this.productSubject.next();
+          }
+        }, {
+          key: "getAllProducts",
+          value: function getAllProducts() {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-              var result;
+              var products;
               return regeneratorRuntime.wrap(function _callee$(_context) {
                 while (1) {
                   switch (_context.prev = _context.next) {
                     case 0:
                       _context.next = 2;
-                      return this.httpClient.get(ProductsService_1.APIUrl.replace('[]', barcode)).toPromise();
+                      return this.storage.get("products");
 
                     case 2:
-                      result = _context.sent;
+                      products = _context.sent;
 
-                      if (!(result.status === 1 && result.product)) {
+                      if (!products) {
                         _context.next = 7;
                         break;
                       }
 
-                      return _context.abrupt("return", result.product);
+                      return _context.abrupt("return", products);
 
                     case 7:
                       return _context.abrupt("return", null);
@@ -577,30 +599,31 @@
             }));
           }
         }, {
-          key: "addProduct",
-          value: function addProduct(product) {
+          key: "getProductDetails",
+          value: function getProductDetails(barcode) {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+              var result;
               return regeneratorRuntime.wrap(function _callee2$(_context2) {
                 while (1) {
                   switch (_context2.prev = _context2.next) {
                     case 0:
-                      if (!(product !== null)) {
-                        _context2.next = 4;
+                      _context2.next = 2;
+                      return this.httpClient.get(ProductsService_1.APIUrl.replace('[]', barcode)).toPromise();
+
+                    case 2:
+                      result = _context2.sent;
+
+                      if (!(result && result.status === 1 && result.product)) {
+                        _context2.next = 7;
                         break;
                       }
 
-                      ProductsService_1.products.push(product);
-                      _context2.next = 5;
-                      break;
-
-                    case 4:
-                      return _context2.abrupt("return", false);
-
-                    case 5:
-                      this.updateStorage();
-                      return _context2.abrupt("return", true);
+                      return _context2.abrupt("return", result.product);
 
                     case 7:
+                      throw new Error("Product not found");
+
+                    case 8:
                     case "end":
                       return _context2.stop();
                   }
@@ -609,9 +632,40 @@
             }));
           }
         }, {
-          key: "updateStorage",
-          value: function updateStorage() {
-            this.storage.set("products", ProductsService_1.products);
+          key: "addProduct",
+          value: function addProduct(product) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+              var all;
+              return regeneratorRuntime.wrap(function _callee3$(_context3) {
+                while (1) {
+                  switch (_context3.prev = _context3.next) {
+                    case 0:
+                      if (!(product !== null)) {
+                        _context3.next = 11;
+                        break;
+                      }
+
+                      product.addDate = new Date();
+                      _context3.next = 4;
+                      return this.getAllProducts();
+
+                    case 4:
+                      all = _context3.sent;
+                      all.push(product);
+                      this.storage.set("products", all);
+                      this.onProductListUpdate();
+                      return _context3.abrupt("return", true);
+
+                    case 11:
+                      return _context3.abrupt("return", false);
+
+                    case 12:
+                    case "end":
+                      return _context3.stop();
+                  }
+                }
+              }, _callee3, this);
+            }));
           }
         }]);
 
@@ -619,7 +673,6 @@
       }();
 
       ProductsService.APIUrl = "https://de.openfoodfacts.org/api/v0/product/[].json";
-      ProductsService.products = [];
 
       ProductsService.ctorParameters = function () {
         return [{
