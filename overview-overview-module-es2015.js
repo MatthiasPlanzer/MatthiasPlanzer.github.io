@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-title>Übersicht</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-list *ngIf='products | async; let rawProducts'>\n    <ion-label *ngFor=\"let product of rawProducts; index as i\">\n\n      <ion-item>\n        <ion-avatar slot=\"start\">\n          <img src=\"{{ product.image_url}}\">\n        </ion-avatar>\n        <h1>{{ product.product_name }}</h1>\n      </ion-item>\n      <ion-item>\n        <table class=\"table\">\n          <thead>\n            <tr>\n              <th>Menge</th>\n              <th>Nährwert</th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td>Kohlenhydrate</td>\n              <td>{{ product.nutriments.carbohydrates }}</td>\n            </tr>\n            <tr>\n              <td>davon Zucker</td>\n              <td>{{ product.nutriments.fat }}</td>\n            </tr>\n            <tr>\n              <td>Energie</td>\n              <td>{{ product.nutriments.energy }}kJ / {{ product.nutriments['energy-kcal'] }}kJ</td>\n            </tr>\n            <tr>\n              <td>Fett</td>\n              <td>{{ product.nutriments.fat }}</td>\n            </tr>\n          </tbody>\n        </table>\n      </ion-item>\n    </ion-label>\n    <ion-item *ngIf='rawProducts.length === 0'>Keine Produkte hinzugefügt.</ion-item>\n  </ion-list>\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-title>Übersicht</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-list *ngIf='asyncProductRange | async; let productRange'>\n    <ion-list>\n\n    \n    <ion-label *ngFor=\"let product of rawProducts; index as i\">\n\n      <ion-item>\n        <ion-avatar slot=\"start\">\n          <img src=\"{{ product.image_url}}\">\n        </ion-avatar>\n        <h1>{{ product.product_name }}</h1>\n      </ion-item>\n      <ion-item>\n        <table class=\"table\">\n          <thead>\n            <tr>\n              <th>Menge</th>\n              <th>Nährwert</th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td>Kohlenhydrate</td>\n              <td>{{ product.nutriments.carbohydrates }}</td>\n            </tr>\n            <tr>\n              <td>davon Zucker</td>\n              <td>{{ product.nutriments.fat }}</td>\n            </tr>\n            <tr>\n              <td>Energie</td>\n              <td>{{ product.nutriments.energy }}kJ / {{ product.nutriments['energy-kcal'] }}kJ</td>\n            </tr>\n            <tr>\n              <td>Fett</td>\n              <td>{{ product.nutriments.fat }}</td>\n            </tr>\n          </tbody>\n        </table>\n      </ion-item>\n    </ion-label>\n  </ion-list>\n    <ion-item *ngIf='rawProducts.length === 0'>Keine Produkte hinzugefügt.</ion-item>\n  </ion-list>\n</ion-content>");
 
 /***/ }),
 
@@ -129,15 +129,17 @@ __webpack_require__.r(__webpack_exports__);
 let OverviewPage = class OverviewPage {
     constructor(productsService) {
         this.productsService = productsService;
+        this.viewTimespan = 0;
         this.updateProducts();
-        this.productSubscription = productsService.productListChange().subscribe(this.productsService.getAllProducts.bind(this));
+        this.productSubscription = productsService.productListChange().subscribe(console.log
+        // this.productsService.getProductsByTimespan.bind(this, this.viewTimespan)
+        );
     }
     updateProducts() {
         console.log('upd. products');
-        this.products = this.productsService.getAllProducts();
+        this.asyncProductRange = this.productsService.getProductsByTimespan(this.viewTimespan);
     }
     ngOnInit() {
-        this.productsService;
     }
 };
 OverviewPage.ctorParameters = () => [

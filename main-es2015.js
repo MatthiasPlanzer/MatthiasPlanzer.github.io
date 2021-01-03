@@ -500,13 +500,33 @@ let ProductsService = ProductsService_1 = class ProductsService {
     }
     getAllProducts() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            let products = yield this.storage.get("products");
+            const products = yield this.storage.get("products");
             if (products) {
                 return products;
             }
             else {
                 return null;
             }
+        });
+    }
+    getProductsByTimespan(timespan) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            const all = yield this.getAllProducts();
+            const filtered = [];
+            if (all === null) {
+                return null;
+            }
+            for (const current of all) {
+                switch (timespan) {
+                    case 0:
+                        const ym = current.addDate.getFullYear() + current.addDate.getMonth();
+                        if (!filtered[ym]) {
+                            filtered[ym] = [];
+                        }
+                        filtered[ym].push(current);
+                }
+            }
+            return filtered;
         });
     }
     getProductDetails(barcode) {

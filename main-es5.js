@@ -1,4 +1,10 @@
 (function () {
+  function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+  function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+  function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
   function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
   function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
@@ -599,31 +605,56 @@
             }));
           }
         }, {
-          key: "getProductDetails",
-          value: function getProductDetails(barcode) {
+          key: "getProductsByTimespan",
+          value: function getProductsByTimespan(timespan) {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-              var result;
+              var all, filtered, _iterator, _step, current, ym;
+
               return regeneratorRuntime.wrap(function _callee2$(_context2) {
                 while (1) {
                   switch (_context2.prev = _context2.next) {
                     case 0:
                       _context2.next = 2;
-                      return this.httpClient.get(ProductsService_1.APIUrl.replace('[]', barcode)).toPromise();
+                      return this.getAllProducts();
 
                     case 2:
-                      result = _context2.sent;
+                      all = _context2.sent;
+                      filtered = [];
 
-                      if (!(result && result.status === 1 && result.product)) {
-                        _context2.next = 7;
+                      if (!(all === null)) {
+                        _context2.next = 6;
                         break;
                       }
 
-                      return _context2.abrupt("return", result.product);
+                      return _context2.abrupt("return", null);
 
-                    case 7:
-                      throw new Error("Product not found");
+                    case 6:
+                      _iterator = _createForOfIteratorHelper(all);
 
-                    case 8:
+                      try {
+                        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                          current = _step.value;
+
+                          switch (timespan) {
+                            case 0:
+                              ym = current.addDate.getFullYear() + current.addDate.getMonth();
+
+                              if (!filtered[ym]) {
+                                filtered[ym] = [];
+                              }
+
+                              filtered[ym].push(current);
+                          }
+                        }
+                      } catch (err) {
+                        _iterator.e(err);
+                      } finally {
+                        _iterator.f();
+                      }
+
+                      return _context2.abrupt("return", filtered);
+
+                    case 9:
                     case "end":
                       return _context2.stop();
                   }
@@ -632,39 +663,72 @@
             }));
           }
         }, {
-          key: "addProduct",
-          value: function addProduct(product) {
+          key: "getProductDetails",
+          value: function getProductDetails(barcode) {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-              var all;
+              var result;
               return regeneratorRuntime.wrap(function _callee3$(_context3) {
                 while (1) {
                   switch (_context3.prev = _context3.next) {
                     case 0:
-                      if (!(product !== null)) {
-                        _context3.next = 11;
+                      _context3.next = 2;
+                      return this.httpClient.get(ProductsService_1.APIUrl.replace('[]', barcode)).toPromise();
+
+                    case 2:
+                      result = _context3.sent;
+
+                      if (!(result && result.status === 1 && result.product)) {
+                        _context3.next = 7;
                         break;
                       }
 
-                      product.addDate = new Date();
-                      _context3.next = 4;
-                      return this.getAllProducts();
+                      return _context3.abrupt("return", result.product);
 
-                    case 4:
-                      all = _context3.sent;
-                      all.push(product);
-                      this.storage.set("products", all);
-                      this.onProductListUpdate();
-                      return _context3.abrupt("return", true);
+                    case 7:
+                      throw new Error("Product not found");
 
-                    case 11:
-                      return _context3.abrupt("return", false);
-
-                    case 12:
+                    case 8:
                     case "end":
                       return _context3.stop();
                   }
                 }
               }, _callee3, this);
+            }));
+          }
+        }, {
+          key: "addProduct",
+          value: function addProduct(product) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+              var all;
+              return regeneratorRuntime.wrap(function _callee4$(_context4) {
+                while (1) {
+                  switch (_context4.prev = _context4.next) {
+                    case 0:
+                      if (!(product !== null)) {
+                        _context4.next = 11;
+                        break;
+                      }
+
+                      product.addDate = new Date();
+                      _context4.next = 4;
+                      return this.getAllProducts();
+
+                    case 4:
+                      all = _context4.sent;
+                      all.push(product);
+                      this.storage.set("products", all);
+                      this.onProductListUpdate();
+                      return _context4.abrupt("return", true);
+
+                    case 11:
+                      return _context4.abrupt("return", false);
+
+                    case 12:
+                    case "end":
+                      return _context4.stop();
+                  }
+                }
+              }, _callee4, this);
             }));
           }
         }]);
