@@ -509,24 +509,48 @@ let ProductsService = ProductsService_1 = class ProductsService {
             }
         });
     }
+    /**
+     * This function is where all the magic happens.
+     * Although it looks like it is not very well written, it is actually quite optimized for performance.
+     * @param timespan The timespan in which products are grouped.
+     */
     getProductsByTimespan(timespan) {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             const all = yield this.getAllProducts();
             const filtered = [];
+            const final = [];
             if (all === null) {
                 return null;
             }
             for (const current of all) {
                 switch (timespan) {
                     case 0:
-                        const ym = current.addDate.getFullYear() + current.addDate.getMonth();
+                        const ym = current.addDate.toLocaleString('default', { month: 'long' }) + ' ' + current.addDate.getFullYear();
                         if (!filtered[ym]) {
                             filtered[ym] = [];
                         }
                         filtered[ym].push(current);
+                        break;
+                    case 1:
+                        const firstDayOfYear = new Date(current.addDate.getFullYear(), 0, 1);
+                        // type any because typescript doesn't support abstractions like this.
+                        const pastDaysOfYear = (current.addDate - firstDayOfYear) / 86400000;
+                        const w = Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
+                        if (!filtered[w]) {
+                            filtered[w] = [];
+                        }
+                        filtered[w].push(current);
+                        break;
                 }
             }
-            return filtered;
+            for (const key in filtered) {
+                if (Object.prototype.hasOwnProperty.call(filtered, key)) {
+                    // tslint:disable-next-line: no-shadowed-variable
+                    const timespan = filtered[key];
+                    final.push({ items: timespan, range: key });
+                }
+            }
+            return final;
         });
     }
     getProductDetails(barcode) {
