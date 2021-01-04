@@ -500,7 +500,7 @@ let ProductsService = ProductsService_1 = class ProductsService {
     }
     getAllProducts() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            const products = yield this.storage.get("products");
+            const products = yield this.storage.get('products');
             if (products) {
                 return products;
             }
@@ -526,12 +526,33 @@ let ProductsService = ProductsService_1 = class ProductsService {
                 if (Object.prototype.hasOwnProperty.call(filtered, key)) {
                     // tslint:disable-next-line: no-shadowed-variable
                     const timespan = filtered[key];
-                    const overviewItem = { items: timespan, range: key };
+                    const totalNutriments = this.getSumOfNutriments(timespan);
+                    const overviewItem = { items: timespan, range: key, nutriments: totalNutriments };
                     final.push(overviewItem);
                 }
             }
             return final;
         });
+    }
+    getSumOfNutriments(products) {
+        const sumOFNutriments = {
+            carbohydrates: 0,
+            fat: 0,
+            energy: 0,
+            sugars: 0,
+            proteins: 0,
+            ['energy-kcal']: 0,
+        };
+        for (const currentProduct of products) {
+            const currentNutriments = currentProduct.nutriments;
+            sumOFNutriments.carbohydrates += currentNutriments.carbohydrates;
+            sumOFNutriments.fat += currentNutriments.fat;
+            sumOFNutriments.energy += currentNutriments.energy;
+            sumOFNutriments.sugars += currentNutriments.sugars;
+            sumOFNutriments.proteins += currentNutriments.proteins;
+            sumOFNutriments['energy-kcal'] += currentNutriments['energy-kcal'];
+        }
+        return sumOFNutriments;
     }
     getDataByTimespan(data, timespan) {
         const timespanData = [];
@@ -566,7 +587,7 @@ let ProductsService = ProductsService_1 = class ProductsService {
                 return result.product;
             }
             else {
-                throw new Error("Product not found");
+                throw new Error('Product not found');
             }
         });
     }
@@ -575,9 +596,9 @@ let ProductsService = ProductsService_1 = class ProductsService {
             // var product = await this.getProductDetails(barcode);
             if (product !== null) {
                 product.addDate = new Date();
-                let all = yield this.getAllProducts();
+                const all = yield this.getAllProducts();
                 all.push(product);
-                this.storage.set("products", all);
+                this.storage.set('products', all);
                 this.onProductListUpdate();
                 return true;
             }
@@ -587,7 +608,7 @@ let ProductsService = ProductsService_1 = class ProductsService {
         });
     }
 };
-ProductsService.APIUrl = "https://de.openfoodfacts.org/api/v0/product/[].json";
+ProductsService.APIUrl = 'https://de.openfoodfacts.org/api/v0/product/[].json';
 ProductsService.ctorParameters = () => [
     { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_3__["Storage"] },
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] }

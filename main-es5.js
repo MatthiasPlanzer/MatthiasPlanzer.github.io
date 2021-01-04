@@ -5,6 +5,8 @@
 
   function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
+  function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
   function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
   function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
@@ -581,7 +583,7 @@
                   switch (_context.prev = _context.next) {
                     case 0:
                       _context.next = 2;
-                      return this.storage.get("products");
+                      return this.storage.get('products');
 
                     case 2:
                       products = _context.sent;
@@ -614,7 +616,7 @@
           key: "getProductsByTimespan",
           value: function getProductsByTimespan(timespan) {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-              var all, _final, filtered, key, _timespan, overviewItem;
+              var all, _final, filtered, key, _timespan, totalNutriments, overviewItem;
 
               return regeneratorRuntime.wrap(function _callee2$(_context2) {
                 while (1) {
@@ -641,9 +643,11 @@
                         if (Object.prototype.hasOwnProperty.call(filtered, key)) {
                           // tslint:disable-next-line: no-shadowed-variable
                           _timespan = filtered[key];
+                          totalNutriments = this.getSumOfNutriments(_timespan);
                           overviewItem = {
                             items: _timespan,
-                            range: key
+                            range: key,
+                            nutriments: totalNutriments
                           };
 
                           _final.push(overviewItem);
@@ -661,16 +665,49 @@
             }));
           }
         }, {
-          key: "getDataByTimespan",
-          value: function getDataByTimespan(data, timespan) {
-            var timespanData = [];
+          key: "getSumOfNutriments",
+          value: function getSumOfNutriments(products) {
+            var sumOFNutriments = _defineProperty({
+              carbohydrates: 0,
+              fat: 0,
+              energy: 0,
+              sugars: 0,
+              proteins: 0
+            }, 'energy-kcal', 0);
 
-            var _iterator = _createForOfIteratorHelper(data),
+            var _iterator = _createForOfIteratorHelper(products),
                 _step;
 
             try {
               for (_iterator.s(); !(_step = _iterator.n()).done;) {
-                var current = _step.value;
+                var currentProduct = _step.value;
+                var currentNutriments = currentProduct.nutriments;
+                sumOFNutriments.carbohydrates += currentNutriments.carbohydrates;
+                sumOFNutriments.fat += currentNutriments.fat;
+                sumOFNutriments.energy += currentNutriments.energy;
+                sumOFNutriments.sugars += currentNutriments.sugars;
+                sumOFNutriments.proteins += currentNutriments.proteins;
+                sumOFNutriments['energy-kcal'] += currentNutriments['energy-kcal'];
+              }
+            } catch (err) {
+              _iterator.e(err);
+            } finally {
+              _iterator.f();
+            }
+
+            return sumOFNutriments;
+          }
+        }, {
+          key: "getDataByTimespan",
+          value: function getDataByTimespan(data, timespan) {
+            var timespanData = [];
+
+            var _iterator2 = _createForOfIteratorHelper(data),
+                _step2;
+
+            try {
+              for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+                var current = _step2.value;
 
                 switch (timespan) {
                   case 0:
@@ -700,9 +737,9 @@
                 }
               }
             } catch (err) {
-              _iterator.e(err);
+              _iterator2.e(err);
             } finally {
-              _iterator.f();
+              _iterator2.f();
             }
 
             return timespanData;
@@ -730,7 +767,7 @@
                       return _context3.abrupt("return", result.product);
 
                     case 7:
-                      throw new Error("Product not found");
+                      throw new Error('Product not found');
 
                     case 8:
                     case "end":
@@ -761,7 +798,7 @@
                     case 4:
                       all = _context4.sent;
                       all.push(product);
-                      this.storage.set("products", all);
+                      this.storage.set('products', all);
                       this.onProductListUpdate();
                       return _context4.abrupt("return", true);
 
@@ -781,7 +818,7 @@
         return ProductsService;
       }();
 
-      ProductsService.APIUrl = "https://de.openfoodfacts.org/api/v0/product/[].json";
+      ProductsService.APIUrl = 'https://de.openfoodfacts.org/api/v0/product/[].json';
 
       ProductsService.ctorParameters = function () {
         return [{
