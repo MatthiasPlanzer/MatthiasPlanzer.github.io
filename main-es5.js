@@ -614,7 +614,7 @@
           key: "getProductsByTimespan",
           value: function getProductsByTimespan(timespan) {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-              var all, filtered, _final, _iterator, _step, current, ym, firstDayOfYear, pastDaysOfYear, w, key, _timespan;
+              var all, _final, filtered, key, _timespan, overviewItem;
 
               return regeneratorRuntime.wrap(function _callee2$(_context2) {
                 while (1) {
@@ -625,101 +625,87 @@
 
                     case 2:
                       all = _context2.sent;
-                      filtered = [];
                       _final = [];
 
                       if (!(all === null)) {
-                        _context2.next = 7;
+                        _context2.next = 6;
                         break;
                       }
 
                       return _context2.abrupt("return", null);
 
-                    case 7:
-                      _iterator = _createForOfIteratorHelper(all);
-                      _context2.prev = 8;
+                    case 6:
+                      filtered = this.getDataByTimespan(all, timespan);
 
-                      _iterator.s();
-
-                    case 10:
-                      if ((_step = _iterator.n()).done) {
-                        _context2.next = 27;
-                        break;
-                      }
-
-                      current = _step.value;
-                      _context2.t0 = timespan;
-                      _context2.next = _context2.t0 === 0 ? 15 : _context2.t0 === 1 ? 19 : 25;
-                      break;
-
-                    case 15:
-                      ym = current.addDate.toLocaleString('default', {
-                        month: 'long'
-                      }) + ' ' + current.addDate.getFullYear();
-
-                      if (!filtered[ym]) {
-                        filtered[ym] = [];
-                      }
-
-                      filtered[ym].push(current);
-                      return _context2.abrupt("break", 25);
-
-                    case 19:
-                      firstDayOfYear = new Date(current.addDate.getFullYear(), 0, 1); // type any because typescript doesn't support abstractions like this.
-
-                      pastDaysOfYear = (current.addDate - firstDayOfYear) / 86400000;
-                      w = Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
-
-                      if (!filtered[w]) {
-                        filtered[w] = [];
-                      }
-
-                      filtered[w].push(current);
-                      return _context2.abrupt("break", 25);
-
-                    case 25:
-                      _context2.next = 10;
-                      break;
-
-                    case 27:
-                      _context2.next = 32;
-                      break;
-
-                    case 29:
-                      _context2.prev = 29;
-                      _context2.t1 = _context2["catch"](8);
-
-                      _iterator.e(_context2.t1);
-
-                    case 32:
-                      _context2.prev = 32;
-
-                      _iterator.f();
-
-                      return _context2.finish(32);
-
-                    case 35:
                       for (key in filtered) {
                         if (Object.prototype.hasOwnProperty.call(filtered, key)) {
                           // tslint:disable-next-line: no-shadowed-variable
                           _timespan = filtered[key];
-
-                          _final.push({
+                          overviewItem = {
                             items: _timespan,
                             range: key
-                          });
+                          };
+
+                          _final.push(overviewItem);
                         }
                       }
 
                       return _context2.abrupt("return", _final);
 
-                    case 37:
+                    case 9:
                     case "end":
                       return _context2.stop();
                   }
                 }
-              }, _callee2, this, [[8, 29, 32, 35]]);
+              }, _callee2, this);
             }));
+          }
+        }, {
+          key: "getDataByTimespan",
+          value: function getDataByTimespan(data, timespan) {
+            var timespanData = [];
+
+            var _iterator = _createForOfIteratorHelper(data),
+                _step;
+
+            try {
+              for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                var current = _step.value;
+
+                switch (timespan) {
+                  case 0:
+                    var ym = current.addDate.toLocaleString('default', {
+                      month: 'long'
+                    }) + ' ' + current.addDate.getFullYear();
+
+                    if (!timespanData[ym]) {
+                      timespanData[ym] = [];
+                    }
+
+                    timespanData[ym].push(current);
+                    break;
+
+                  case 1:
+                    var firstDayOfYear = new Date(current.addDate.getFullYear(), 0, 1); // type any because typescript doesn't support abstractions like this.
+
+                    var pastDaysOfYear = (current.addDate - firstDayOfYear) / 86400000;
+                    var w = Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
+
+                    if (!timespanData[w]) {
+                      timespanData[w] = [];
+                    }
+
+                    timespanData[w].push(current);
+                    break;
+                }
+              }
+            } catch (err) {
+              _iterator.e(err);
+            } finally {
+              _iterator.f();
+            }
+
+            return timespanData;
           }
         }, {
           key: "getProductDetails",

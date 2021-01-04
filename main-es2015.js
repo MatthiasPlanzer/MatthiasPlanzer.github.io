@@ -517,41 +517,46 @@ let ProductsService = ProductsService_1 = class ProductsService {
     getProductsByTimespan(timespan) {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             const all = yield this.getAllProducts();
-            const filtered = [];
             const final = [];
             if (all === null) {
                 return null;
             }
-            for (const current of all) {
-                switch (timespan) {
-                    case 0:
-                        const ym = current.addDate.toLocaleString('default', { month: 'long' }) + ' ' + current.addDate.getFullYear();
-                        if (!filtered[ym]) {
-                            filtered[ym] = [];
-                        }
-                        filtered[ym].push(current);
-                        break;
-                    case 1:
-                        const firstDayOfYear = new Date(current.addDate.getFullYear(), 0, 1);
-                        // type any because typescript doesn't support abstractions like this.
-                        const pastDaysOfYear = (current.addDate - firstDayOfYear) / 86400000;
-                        const w = Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
-                        if (!filtered[w]) {
-                            filtered[w] = [];
-                        }
-                        filtered[w].push(current);
-                        break;
-                }
-            }
+            const filtered = this.getDataByTimespan(all, timespan);
             for (const key in filtered) {
                 if (Object.prototype.hasOwnProperty.call(filtered, key)) {
                     // tslint:disable-next-line: no-shadowed-variable
                     const timespan = filtered[key];
-                    final.push({ items: timespan, range: key });
+                    const overviewItem = { items: timespan, range: key };
+                    final.push(overviewItem);
                 }
             }
             return final;
         });
+    }
+    getDataByTimespan(data, timespan) {
+        const timespanData = [];
+        for (const current of data) {
+            switch (timespan) {
+                case 0:
+                    const ym = current.addDate.toLocaleString('default', { month: 'long' }) + ' ' + current.addDate.getFullYear();
+                    if (!timespanData[ym]) {
+                        timespanData[ym] = [];
+                    }
+                    timespanData[ym].push(current);
+                    break;
+                case 1:
+                    const firstDayOfYear = new Date(current.addDate.getFullYear(), 0, 1);
+                    // type any because typescript doesn't support abstractions like this.
+                    const pastDaysOfYear = (current.addDate - firstDayOfYear) / 86400000;
+                    const w = Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
+                    if (!timespanData[w]) {
+                        timespanData[w] = [];
+                    }
+                    timespanData[w].push(current);
+                    break;
+            }
+        }
+        return timespanData;
     }
     getProductDetails(barcode) {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
