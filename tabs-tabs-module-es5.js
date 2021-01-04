@@ -18,7 +18,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-tabs>\n\n  <ion-tab-bar slot=\"bottom\">\n    <ion-tab-button tab=\"overview\">\n      <ion-icon name=\"triangle\"></ion-icon>\n      <ion-label>Übersicht</ion-label>\n    </ion-tab-button>\n\n    <ion-tab-button tab=\"scanner\">\n      <ion-icon name=\"scan\"></ion-icon>\n      <ion-label>Barcode-Scanner</ion-label>\n    </ion-tab-button>\n\n    <ion-tab-button tab=\"tab3\">\n      <ion-icon name=\"settings\"></ion-icon>\n      <ion-label>Einstellungen</ion-label>\n    </ion-tab-button>\n  </ion-tab-bar>\n\n</ion-tabs>\n";
+      __webpack_exports__["default"] = "<ion-tabs>\n  <ion-tab-bar slot=\"bottom\">\n    <ion-tab-button tab=\"overview\">\n      <ion-icon name=\"triangle\"></ion-icon>\n      <ion-label>Übersicht</ion-label>\n    </ion-tab-button>\n\n    <ion-tab-button tab=\"scanner\">\n      <ion-icon name=\"scan\"></ion-icon>\n      <ion-label>Barcode-Scanner</ion-label>\n    </ion-tab-button>\n  </ion-tab-bar>\n</ion-tabs>\n";
       /***/
     },
 
@@ -89,17 +89,6 @@
             /*! ../scanner/scanner.module */
             "./src/app/scanner/scanner.module.ts")).then(function (m) {
               return m.ScannerPageModule;
-            });
-          }
-        }, {
-          path: "tab3",
-          loadChildren: function loadChildren() {
-            return __webpack_require__.e(
-            /*! import() | tab3-tab3-module */
-            "tab3-tab3-module").then(__webpack_require__.bind(null,
-            /*! ../tab3/tab3.module */
-            "./src/app/tab3/tab3.module.ts")).then(function (m) {
-              return m.Tab3PageModule;
             });
           }
         }, {
