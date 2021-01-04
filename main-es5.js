@@ -502,6 +502,37 @@
     },
 
     /***/
+    "./src/app/data/timespan.ts":
+    /*!**********************************!*\
+      !*** ./src/app/data/timespan.ts ***!
+      \**********************************/
+
+    /*! exports provided: Timespan */
+
+    /***/
+    function srcAppDataTimespanTs(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "Timespan", function () {
+        return Timespan;
+      });
+
+      var Timespan;
+
+      (function (Timespan) {
+        Timespan[Timespan["month"] = 0] = "month";
+        Timespan[Timespan["week"] = 1] = "week";
+        Timespan[Timespan["day"] = 2] = "day";
+      })(Timespan || (Timespan = {}));
+      /***/
+
+    },
+
+    /***/
     "./src/app/products.service.ts":
     /*!*************************************!*\
       !*** ./src/app/products.service.ts ***!
@@ -550,6 +581,12 @@
       var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! rxjs */
       "./node_modules/rxjs/_esm2015/index.js");
+      /* harmony import */
+
+
+      var _data_timespan__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! ./data/timespan */
+      "./src/app/data/timespan.ts");
 
       var ProductsService_1;
 
@@ -708,33 +745,32 @@
             try {
               for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
                 var current = _step2.value;
+                var index = void 0;
 
                 switch (timespan) {
-                  case 0:
-                    var ym = current.addDate.toLocaleString('default', {
+                  case _data_timespan__WEBPACK_IMPORTED_MODULE_5__["Timespan"].month:
+                    index = current.addDate.toLocaleString('default', {
                       month: 'long'
                     }) + ' ' + current.addDate.getFullYear();
-
-                    if (!timespanData[ym]) {
-                      timespanData[ym] = [];
-                    }
-
-                    timespanData[ym].push(current);
                     break;
 
-                  case 1:
+                  case _data_timespan__WEBPACK_IMPORTED_MODULE_5__["Timespan"].week:
                     var firstDayOfYear = new Date(current.addDate.getFullYear(), 0, 1); // type any because typescript doesn't support abstractions like this.
 
                     var pastDaysOfYear = (current.addDate - firstDayOfYear) / 86400000;
-                    var w = Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
+                    index = Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7).toString();
+                    break;
 
-                    if (!timespanData[w]) {
-                      timespanData[w] = [];
-                    }
-
-                    timespanData[w].push(current);
+                  case _data_timespan__WEBPACK_IMPORTED_MODULE_5__["Timespan"].day:
+                    index = current.addDate.toLocaleDateString();
                     break;
                 }
+
+                if (!timespanData[index]) {
+                  timespanData[index] = [];
+                }
+
+                timespanData[index].push(current);
               }
             } catch (err) {
               _iterator2.e(err);
