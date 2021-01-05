@@ -738,6 +738,7 @@
           key: "getDataByTimespan",
           value: function getDataByTimespan(data, timespan) {
             var timespanData = [];
+            console.log(timespan);
 
             var _iterator2 = _createForOfIteratorHelper(data),
                 _step2;

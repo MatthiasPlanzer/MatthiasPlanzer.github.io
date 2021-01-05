@@ -578,6 +578,7 @@ let ProductsService = ProductsService_1 = class ProductsService {
     }
     getDataByTimespan(data, timespan) {
         const timespanData = [];
+        console.log(timespan);
         for (const current of data) {
             let index;
             switch (timespan) {

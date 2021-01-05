@@ -22,7 +22,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-title>Übersicht</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-list *ngIf=\"asyncProductRange | async; let productRange\">\n    <ion-item-group *ngFor=\"let currentTimespan of productRange; index as i\">\n      <ion-item-divider>\n        <h1>{{ currentTimespan.range }}</h1>\n      </ion-item-divider>\n      <ion-label>\n        <ion-item>\n          <table class=\"table\">\n            <thead>\n              <tr>\n                <th>Nährwerte</th>\n                <th>Menge</th>\n              </tr>\n            </thead>\n            <tbody>\n              <tr>\n                <td>Kohlenhydrate</td>\n                <td>{{ currentTimespan.nutriments.carbohydrates }}</td>\n              </tr>\n              <tr>\n                <td>davon Zucker</td>\n                <td>{{ currentTimespan.nutriments.fat }}</td>\n              </tr>\n              <tr>\n                <td>Energie</td>\n                <td>\n                  {{ currentTimespan.nutriments.energy }}kJ / {{\n                  currentTimespan.nutriments['energy-kcal'] }}kJ\n                </td>\n              </tr>\n              <tr>\n                <td>Fett</td>\n                <td>{{ currentTimespan.nutriments.fat }}</td>\n              </tr>\n            </tbody>\n          </table>\n        </ion-item>\n      </ion-label>\n      <ion-label *ngFor=\"let product of currentTimespan.items; index as i\">\n        <ion-item>\n          <ion-avatar slot=\"start\">\n            <img src=\"{{ product.image_url}}\" />\n          </ion-avatar>\n          <h2>{{ product.product_name }}</h2>\n        </ion-item>\n        <ion-item>\n          <table class=\"table\">\n            <thead>\n              <tr>\n                <th>Nährwerte</th>\n                <th>Menge</th>\n              </tr>\n            </thead>\n            <tbody>\n              <tr>\n                <td>Kohlenhydrate</td>\n                <td>{{ product.nutriments.carbohydrates }}</td>\n              </tr>\n              <tr>\n                <td>davon Zucker</td>\n                <td>{{ product.nutriments.fat }}</td>\n              </tr>\n              <tr>\n                <td>Energie</td>\n                <td>\n                  {{ product.nutriments.energy }}kJ / {{\n                  product.nutriments['energy-kcal'] }}kJ\n                </td>\n              </tr>\n              <tr>\n                <td>Fett</td>\n                <td>{{ product.nutriments.fat }}</td>\n              </tr>\n            </tbody>\n          </table>\n        </ion-item>\n      </ion-label>\n    </ion-item-group>\n    <ion-item *ngIf=\"productRange.length === 0\"\n      >Keine Produkte hinzugefügt.</ion-item\n    >\n  </ion-list>\n</ion-content>\n";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-title>Übersicht</ion-title>\n    <select\n      class=\"form-control\"\n      id=\"power\"\n      (change)=\"changeTimespan($event)\"\n      required\n    >\n      <option value=\"0\">Monat</option>\n      <option value=\"1\">Woche</option>\n      <option value=\"2\">Tag</option>\n    </select>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-list *ngIf=\"asyncProductRange | async; let productRange\">\n    <ion-item-group *ngFor=\"let currentTimespan of productRange; index as i\">\n      <ion-item-divider>\n        <h1>{{ currentTimespan.range }}</h1>\n      </ion-item-divider>\n\n      <ion-label *ngFor=\"let product of currentTimespan.items; index as i\">\n        <ion-item>\n          <ion-avatar slot=\"start\">\n            <img src=\"{{ product.image_url}}\" />\n          </ion-avatar>\n          <h2>{{ product.product_name }}</h2>\n        </ion-item>\n        <ion-item>\n          <table class=\"table\">\n            <thead>\n              <tr>\n                <th>Nährwert</th>\n                <th>Menge</th>\n              </tr>\n            </thead>\n            <tbody>\n              <tr>\n                <td>Kohlenhydrate</td>\n                <td>{{ product.nutriments.carbohydrates }}</td>\n              </tr>\n              <tr>\n                <td>davon Zucker</td>\n                <td>{{ product.nutriments.fat }}</td>\n              </tr>\n              <tr>\n                <td>Energie</td>\n                <td>\n                  {{ product.nutriments.energy }}kJ / {{\n                  product.nutriments['energy-kcal'] }}kJ\n                </td>\n              </tr>\n              <tr>\n                <td>Fett</td>\n                <td>{{ product.nutriments.fat }}</td>\n              </tr>\n            </tbody>\n          </table>\n        </ion-item>\n      </ion-label>\n    </ion-item-group>\n    <ion-item *ngIf=\"productRange.length === 0\"\n      >Keine Produkte hinzugefügt.</ion-item\n    >\n  </ion-list>\n</ion-content>\n";
       /***/
     },
 
@@ -220,7 +220,13 @@
       /* harmony import */
 
 
-      var _products_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      var _data_timespan__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! ../data/timespan */
+      "./src/app/data/timespan.ts");
+      /* harmony import */
+
+
+      var _products_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! ../products.service */
       "./src/app/products.service.ts");
 
@@ -229,6 +235,7 @@
           _classCallCheck(this, OverviewPage);
 
           this.productsService = productsService;
+          this.Timespan = _data_timespan__WEBPACK_IMPORTED_MODULE_2__["Timespan"];
           this.viewTimespan = 0;
           this.Object = Object;
           this.updateProducts();
@@ -243,6 +250,12 @@
             this.asyncProductRange.then(console.log);
           }
         }, {
+          key: "changeTimespan",
+          value: function changeTimespan(event) {
+            this.viewTimespan = +event.target.value;
+            this.updateProducts();
+          }
+        }, {
           key: "ngOnInit",
           value: function ngOnInit() {}
         }]);
@@ -252,7 +265,7 @@
 
       OverviewPage.ctorParameters = function () {
         return [{
-          type: _products_service__WEBPACK_IMPORTED_MODULE_2__["ProductsService"]
+          type: _products_service__WEBPACK_IMPORTED_MODULE_3__["ProductsService"]
         }];
       };
 
