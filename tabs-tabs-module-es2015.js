@@ -38,11 +38,11 @@ const routes = [
         children: [
             {
                 path: "overview",
-                loadChildren: () => __webpack_require__.e(/*! import() | overview-overview-module */ "overview-overview-module").then(__webpack_require__.bind(null, /*! ../overview/overview.module */ "./src/app/overview/overview.module.ts")).then((m) => m.OverviewPageModule),
+                loadChildren: () => Promise.all(/*! import() | overview-overview-module */[__webpack_require__.e("common"), __webpack_require__.e("overview-overview-module")]).then(__webpack_require__.bind(null, /*! ../overview/overview.module */ "./src/app/overview/overview.module.ts")).then((m) => m.OverviewPageModule),
             },
             {
                 path: "scanner",
-                loadChildren: () => __webpack_require__.e(/*! import() | scanner-scanner-module */ "scanner-scanner-module").then(__webpack_require__.bind(null, /*! ../scanner/scanner.module */ "./src/app/scanner/scanner.module.ts")).then((m) => m.ScannerPageModule),
+                loadChildren: () => Promise.all(/*! import() | scanner-scanner-module */[__webpack_require__.e("common"), __webpack_require__.e("scanner-scanner-module")]).then(__webpack_require__.bind(null, /*! ../scanner/scanner.module */ "./src/app/scanner/scanner.module.ts")).then((m) => m.ScannerPageModule),
             },
             {
                 path: "",

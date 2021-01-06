@@ -432,6 +432,121 @@ const openURL = async (url, ev, direction, animation) => {
 
 
 
+/***/ }),
+
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/add-product/add-product.component.html":
+/*!**********************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/add-product/add-product.component.html ***!
+  \**********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-title>Produkt {{ update ? \"ändern\" : \"hinzufügen\" }}</ion-title>\n    <ion-button slot=\"end\" fill=\"clear\" (click)=\"dismissModal()\">\n      <ion-icon name=\"close\"></ion-icon>\n    </ion-button>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n  <img *ngIf=\"product.image_url\" [src]=\"product.image_url\" />\n  <ion-item>\n    <ion-label position=\"floating\">Produktname</ion-label>\n    <ion-input [(ngModel)]=\"product.product_name\"></ion-input>\n  </ion-item>\n  <ion-item>\n    <ion-label position=\"floating\">Kohlenhydrate</ion-label>\n    <ion-input [(ngModel)]=\"product.nutriments.carbohydrates\"></ion-input>\n  </ion-item>\n  <ion-item>\n    <ion-label position=\"floating\">Davon Zucker</ion-label>\n    <ion-input [(ngModel)]=\"product.nutriments.sugars\"></ion-input>\n  </ion-item>\n  <ion-item>\n    <ion-label position=\"floating\">Energie (kJ)</ion-label>\n    <ion-input [(ngModel)]=\"product.nutriments.energy\"></ion-input>\n  </ion-item>\n  <ion-item>\n    <ion-label position=\"floating\">Energie (kcal)</ion-label>\n    <ion-input [(ngModel)]=\"product.nutriments['energy-kcal']\"></ion-input>\n  </ion-item>\n  <ion-item>\n    <ion-label position=\"floating\">Fett</ion-label>\n    <ion-input [(ngModel)]=\"product.nutriments.fat\"></ion-input>\n  </ion-item>\n  <ion-item>\n    <ion-label position=\"floating\">Proteine</ion-label>\n    <ion-input [(ngModel)]=\"product.nutriments.proteins\"></ion-input>\n  </ion-item>\n  <ion-button (click)=\"confirmAdding()\"\n    >Produkt {{ update ? \"ändern\" : \"hinzufügen\" }}</ion-button\n  >\n</ion-content>\n");
+
+/***/ }),
+
+/***/ "./src/app/add-product/add-product.component.scss":
+/*!********************************************************!*\
+  !*** ./src/app/add-product/add-product.component.scss ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("ion-button {\n  margin: 1rem;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYWRkLXByb2R1Y3QvYWRkLXByb2R1Y3QuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxZQUFBO0FBQ0YiLCJmaWxlIjoic3JjL2FwcC9hZGQtcHJvZHVjdC9hZGQtcHJvZHVjdC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1idXR0b24ge1xuICBtYXJnaW46IDFyZW07XG59XG4iXX0= */");
+
+/***/ }),
+
+/***/ "./src/app/add-product/add-product.component.ts":
+/*!******************************************************!*\
+  !*** ./src/app/add-product/add-product.component.ts ***!
+  \******************************************************/
+/*! exports provided: AddProductComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddProductComponent", function() { return AddProductComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/__ivy_ngcc__/fesm2015/ionic-angular.js");
+/* harmony import */ var _products_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../products.service */ "./src/app/products.service.ts");
+
+
+
+
+let AddProductComponent = class AddProductComponent {
+    constructor(modalController, productsService) {
+        this.modalController = modalController;
+        this.productsService = productsService;
+        this.update = false;
+    }
+    ngOnInit() {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            if (this.product) {
+                this.update = true;
+                return;
+            }
+            this.product = {
+                nutriments: {
+                    carbohydrates: null,
+                    'energy-kcal': null,
+                    energy: null,
+                    fat: null,
+                    proteins: null,
+                    sugars: null
+                },
+                addDate: new Date(),
+                product_name: '',
+                image_url: null,
+                // tslint:disable-next-line: no-bitwise
+                id: Math.random() * 1e4 | 0
+            };
+            if (this.code) {
+                const product = yield this.productsService.getProductDetails(this.code);
+                this.product = product;
+            }
+        });
+    }
+    confirmAdding() {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            if (this.update) {
+                this.productsService.updateProduct(this.product);
+                console.log(this.product.addDate);
+            }
+            else {
+                this.productsService.addProduct(this.product);
+            }
+            this.dismissModal();
+        });
+    }
+    dismissModal() {
+        if (this.modalController) {
+            this.modalController.dismiss();
+        }
+    }
+};
+AddProductComponent.ctorParameters = () => [
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] },
+    { type: _products_service__WEBPACK_IMPORTED_MODULE_3__["ProductsService"] }
+];
+AddProductComponent.propDecorators = {
+    code: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] }],
+    product: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] }]
+};
+AddProductComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-add-product',
+        template: Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(/*! raw-loader!./add-product.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/add-product/add-product.component.html")).default,
+        styles: [Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(/*! ./add-product.component.scss */ "./src/app/add-product/add-product.component.scss")).default]
+    })
+], AddProductComponent);
+
+
+
 /***/ })
 
 }]);

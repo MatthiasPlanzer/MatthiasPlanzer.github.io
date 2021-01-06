@@ -1,5 +1,5 @@
 (function () {
-  function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+  function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
   function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
@@ -197,9 +197,9 @@
       }, {
         path: "scanner",
         loadChildren: function loadChildren() {
-          return __webpack_require__.e(
+          return Promise.all(
           /*! import() | scanner-scanner-module */
-          "scanner-scanner-module").then(__webpack_require__.bind(null,
+          [__webpack_require__.e("common"), __webpack_require__.e("scanner-scanner-module")]).then(__webpack_require__.bind(null,
           /*! ./scanner/scanner.module */
           "./src/app/scanner/scanner.module.ts")).then(function (m) {
             return m.ScannerPageModule;
@@ -208,9 +208,9 @@
       }, {
         path: 'overview',
         loadChildren: function loadChildren() {
-          return __webpack_require__.e(
+          return Promise.all(
           /*! import() | overview-overview-module */
-          "overview-overview-module").then(__webpack_require__.bind(null,
+          [__webpack_require__.e("common"), __webpack_require__.e("overview-overview-module")]).then(__webpack_require__.bind(null,
           /*! ./overview/overview.module */
           "./src/app/overview/overview.module.ts")).then(function (m) {
             return m.OverviewPageModule;
@@ -630,7 +630,7 @@
                         break;
                       }
 
-                      return _context.abrupt("return", products);
+                      return _context.abrupt("return", products.sort().reverse());
 
                     case 7:
                       return _context.abrupt("return", null);
@@ -704,7 +704,9 @@
         }, {
           key: "getSumOfNutriments",
           value: function getSumOfNutriments(products) {
-            var sumOFNutriments = _defineProperty({
+            var _a, _b, _c, _d, _e, _f;
+
+            var sumOfNutriments = _defineProperty({
               carbohydrates: 0,
               fat: 0,
               energy: 0,
@@ -719,12 +721,12 @@
               for (_iterator.s(); !(_step = _iterator.n()).done;) {
                 var currentProduct = _step.value;
                 var currentNutriments = currentProduct.nutriments;
-                sumOFNutriments.carbohydrates += currentNutriments.carbohydrates;
-                sumOFNutriments.fat += currentNutriments.fat;
-                sumOFNutriments.energy += currentNutriments.energy;
-                sumOFNutriments.sugars += currentNutriments.sugars;
-                sumOFNutriments.proteins += currentNutriments.proteins;
-                sumOFNutriments['energy-kcal'] += currentNutriments['energy-kcal'];
+                sumOfNutriments.carbohydrates += (_a = +currentNutriments.carbohydrates) !== null && _a !== void 0 ? _a : 0;
+                sumOfNutriments.fat += (_b = +currentNutriments.fat) !== null && _b !== void 0 ? _b : 0;
+                sumOfNutriments.energy += (_c = +currentNutriments.energy) !== null && _c !== void 0 ? _c : 0;
+                sumOfNutriments.sugars += (_d = +currentNutriments.sugars) !== null && _d !== void 0 ? _d : 0;
+                sumOfNutriments.proteins += (_e = +currentNutriments.proteins) !== null && _e !== void 0 ? _e : 0;
+                sumOfNutriments['energy-kcal'] += (_f = +currentNutriments['energy-kcal']) !== null && _f !== void 0 ? _f : 0;
               }
             } catch (err) {
               _iterator.e(err);
@@ -732,13 +734,12 @@
               _iterator.f();
             }
 
-            return sumOFNutriments;
+            return sumOfNutriments;
           }
         }, {
           key: "getDataByTimespan",
           value: function getDataByTimespan(data, timespan) {
             var timespanData = [];
-            console.log(timespan);
 
             var _iterator2 = _createForOfIteratorHelper(data),
                 _step2;
@@ -797,16 +798,18 @@
                       result = _context3.sent;
 
                       if (!(result && result.status === 1 && result.product)) {
-                        _context3.next = 7;
+                        _context3.next = 8;
                         break;
                       }
 
+                      // tslint:disable-next-line: no-bitwise
+                      result.product.id = Math.random() * 1e4 | 0;
                       return _context3.abrupt("return", result.product);
 
-                    case 7:
+                    case 8:
                       throw new Error('Product not found');
 
-                    case 8:
+                    case 9:
                     case "end":
                       return _context3.stop();
                   }
@@ -815,39 +818,135 @@
             }));
           }
         }, {
-          key: "addProduct",
-          value: function addProduct(product) {
+          key: "updateProductStorage",
+          value: function updateProductStorage(items) {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
-              var all;
               return regeneratorRuntime.wrap(function _callee4$(_context4) {
                 while (1) {
                   switch (_context4.prev = _context4.next) {
                     case 0:
-                      if (!(product !== null)) {
-                        _context4.next = 11;
-                        break;
-                      }
+                      _context4.next = 2;
+                      return this.storage.set('products', items);
 
-                      product.addDate = new Date();
-                      _context4.next = 4;
-                      return this.getAllProducts();
-
-                    case 4:
-                      all = _context4.sent;
-                      all.push(product);
-                      this.storage.set('products', all);
+                    case 2:
                       this.onProductListUpdate();
-                      return _context4.abrupt("return", true);
 
-                    case 11:
-                      return _context4.abrupt("return", false);
-
-                    case 12:
+                    case 3:
                     case "end":
                       return _context4.stop();
                   }
                 }
               }, _callee4, this);
+            }));
+          }
+        }, {
+          key: "addProduct",
+          value: function addProduct(product) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+              var all;
+              return regeneratorRuntime.wrap(function _callee5$(_context5) {
+                while (1) {
+                  switch (_context5.prev = _context5.next) {
+                    case 0:
+                      if (!(product !== null)) {
+                        _context5.next = 10;
+                        break;
+                      }
+
+                      product.addDate = new Date();
+                      _context5.next = 4;
+                      return this.getAllProducts();
+
+                    case 4:
+                      all = _context5.sent;
+                      all.push(product);
+                      this.updateProductStorage(all);
+                      return _context5.abrupt("return", true);
+
+                    case 10:
+                      return _context5.abrupt("return", false);
+
+                    case 11:
+                    case "end":
+                      return _context5.stop();
+                  }
+                }
+              }, _callee5, this);
+            }));
+          }
+        }, {
+          key: "updateProduct",
+          value: function updateProduct(product) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+              var all, currentIndex, currentProduct;
+              return regeneratorRuntime.wrap(function _callee6$(_context6) {
+                while (1) {
+                  switch (_context6.prev = _context6.next) {
+                    case 0:
+                      _context6.next = 2;
+                      return this.getAllProducts();
+
+                    case 2:
+                      all = _context6.sent;
+
+                      for (currentIndex in all) {
+                        if (Object.prototype.hasOwnProperty.call(all, currentIndex)) {
+                          currentProduct = all[currentIndex];
+
+                          if (currentProduct.id === product.id) {
+                            all[currentIndex] = product;
+                          }
+                        }
+                      }
+
+                      this.updateProductStorage(all);
+
+                    case 5:
+                    case "end":
+                      return _context6.stop();
+                  }
+                }
+              }, _callee6, this);
+            }));
+          }
+        }, {
+          key: "deleteProduct",
+          value: function deleteProduct(product) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
+              var all, index, currentIndex, currentProduct;
+              return regeneratorRuntime.wrap(function _callee7$(_context7) {
+                while (1) {
+                  switch (_context7.prev = _context7.next) {
+                    case 0:
+                      _context7.next = 2;
+                      return this.getAllProducts();
+
+                    case 2:
+                      all = _context7.sent;
+                      index = null;
+
+                      for (currentIndex in all) {
+                        if (Object.prototype.hasOwnProperty.call(all, currentIndex)) {
+                          currentProduct = all[currentIndex];
+
+                          if (currentProduct.id === product.id) {
+                            index = currentIndex;
+                          }
+                        }
+                      }
+
+                      if (index > -1) {
+                        all.splice(index, 1);
+                      }
+
+                      this.updateProductStorage(all);
+
+                    case 7:
+                    case "end":
+                      return _context7.stop();
+                  }
+                }
+              }, _callee7, this);
             }));
           }
         }]);

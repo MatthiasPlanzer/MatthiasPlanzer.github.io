@@ -72,9 +72,9 @@
         children: [{
           path: "overview",
           loadChildren: function loadChildren() {
-            return __webpack_require__.e(
+            return Promise.all(
             /*! import() | overview-overview-module */
-            "overview-overview-module").then(__webpack_require__.bind(null,
+            [__webpack_require__.e("common"), __webpack_require__.e("overview-overview-module")]).then(__webpack_require__.bind(null,
             /*! ../overview/overview.module */
             "./src/app/overview/overview.module.ts")).then(function (m) {
               return m.OverviewPageModule;
@@ -83,9 +83,9 @@
         }, {
           path: "scanner",
           loadChildren: function loadChildren() {
-            return __webpack_require__.e(
+            return Promise.all(
             /*! import() | scanner-scanner-module */
-            "scanner-scanner-module").then(__webpack_require__.bind(null,
+            [__webpack_require__.e("common"), __webpack_require__.e("scanner-scanner-module")]).then(__webpack_require__.bind(null,
             /*! ../scanner/scanner.module */
             "./src/app/scanner/scanner.module.ts")).then(function (m) {
               return m.ScannerPageModule;

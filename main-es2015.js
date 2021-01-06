@@ -297,11 +297,11 @@ const routes = [
     },
     {
         path: "scanner",
-        loadChildren: () => __webpack_require__.e(/*! import() | scanner-scanner-module */ "scanner-scanner-module").then(__webpack_require__.bind(null, /*! ./scanner/scanner.module */ "./src/app/scanner/scanner.module.ts")).then((m) => m.ScannerPageModule),
+        loadChildren: () => Promise.all(/*! import() | scanner-scanner-module */[__webpack_require__.e("common"), __webpack_require__.e("scanner-scanner-module")]).then(__webpack_require__.bind(null, /*! ./scanner/scanner.module */ "./src/app/scanner/scanner.module.ts")).then((m) => m.ScannerPageModule),
     },
     {
         path: 'overview',
-        loadChildren: () => __webpack_require__.e(/*! import() | overview-overview-module */ "overview-overview-module").then(__webpack_require__.bind(null, /*! ./overview/overview.module */ "./src/app/overview/overview.module.ts")).then(m => m.OverviewPageModule)
+        loadChildren: () => Promise.all(/*! import() | overview-overview-module */[__webpack_require__.e("common"), __webpack_require__.e("overview-overview-module")]).then(__webpack_require__.bind(null, /*! ./overview/overview.module */ "./src/app/overview/overview.module.ts")).then(m => m.OverviewPageModule)
     },
 ];
 let AppRoutingModule = class AppRoutingModule {
@@ -524,7 +524,7 @@ let ProductsService = ProductsService_1 = class ProductsService {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             const products = yield this.storage.get('products');
             if (products) {
-                return products;
+                return products.sort().reverse();
             }
             else {
                 return null;
@@ -557,7 +557,8 @@ let ProductsService = ProductsService_1 = class ProductsService {
         });
     }
     getSumOfNutriments(products) {
-        const sumOFNutriments = {
+        var _a, _b, _c, _d, _e, _f;
+        const sumOfNutriments = {
             carbohydrates: 0,
             fat: 0,
             energy: 0,
@@ -567,18 +568,17 @@ let ProductsService = ProductsService_1 = class ProductsService {
         };
         for (const currentProduct of products) {
             const currentNutriments = currentProduct.nutriments;
-            sumOFNutriments.carbohydrates += currentNutriments.carbohydrates;
-            sumOFNutriments.fat += currentNutriments.fat;
-            sumOFNutriments.energy += currentNutriments.energy;
-            sumOFNutriments.sugars += currentNutriments.sugars;
-            sumOFNutriments.proteins += currentNutriments.proteins;
-            sumOFNutriments['energy-kcal'] += currentNutriments['energy-kcal'];
+            sumOfNutriments.carbohydrates += (_a = +currentNutriments.carbohydrates) !== null && _a !== void 0 ? _a : 0;
+            sumOfNutriments.fat += (_b = +currentNutriments.fat) !== null && _b !== void 0 ? _b : 0;
+            sumOfNutriments.energy += (_c = +currentNutriments.energy) !== null && _c !== void 0 ? _c : 0;
+            sumOfNutriments.sugars += (_d = +currentNutriments.sugars) !== null && _d !== void 0 ? _d : 0;
+            sumOfNutriments.proteins += (_e = +currentNutriments.proteins) !== null && _e !== void 0 ? _e : 0;
+            sumOfNutriments['energy-kcal'] += (_f = +currentNutriments['energy-kcal']) !== null && _f !== void 0 ? _f : 0;
         }
-        return sumOFNutriments;
+        return sumOfNutriments;
     }
     getDataByTimespan(data, timespan) {
         const timespanData = [];
-        console.log(timespan);
         for (const current of data) {
             let index;
             switch (timespan) {
@@ -607,11 +607,19 @@ let ProductsService = ProductsService_1 = class ProductsService {
             const result = yield this.httpClient.get(ProductsService_1.APIUrl.replace('[]', barcode))
                 .toPromise();
             if (result && result.status === 1 && result.product) {
+                // tslint:disable-next-line: no-bitwise
+                result.product.id = Math.random() * 1e4 | 0;
                 return result.product;
             }
             else {
                 throw new Error('Product not found');
             }
+        });
+    }
+    updateProductStorage(items) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            yield this.storage.set('products', items);
+            this.onProductListUpdate();
         });
     }
     addProduct(product) {
@@ -621,13 +629,44 @@ let ProductsService = ProductsService_1 = class ProductsService {
                 product.addDate = new Date();
                 const all = yield this.getAllProducts();
                 all.push(product);
-                this.storage.set('products', all);
-                this.onProductListUpdate();
+                this.updateProductStorage(all);
                 return true;
             }
             else {
                 return false;
             }
+        });
+    }
+    updateProduct(product) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            const all = yield this.getAllProducts();
+            for (const currentIndex in all) {
+                if (Object.prototype.hasOwnProperty.call(all, currentIndex)) {
+                    const currentProduct = all[currentIndex];
+                    if (currentProduct.id === product.id) {
+                        all[currentIndex] = product;
+                    }
+                }
+            }
+            this.updateProductStorage(all);
+        });
+    }
+    deleteProduct(product) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            const all = yield this.getAllProducts();
+            let index = null;
+            for (const currentIndex in all) {
+                if (Object.prototype.hasOwnProperty.call(all, currentIndex)) {
+                    const currentProduct = all[currentIndex];
+                    if (currentProduct.id === product.id) {
+                        index = currentIndex;
+                    }
+                }
+            }
+            if (index > -1) {
+                all.splice(index, 1);
+            }
+            this.updateProductStorage(all);
         });
     }
 };
