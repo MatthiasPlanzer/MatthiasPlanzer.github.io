@@ -589,7 +589,7 @@ let ProductsService = ProductsService_1 = class ProductsService {
                     const firstDayOfYear = new Date(current.addDate.getFullYear(), 0, 1);
                     // type any because typescript doesn't support abstractions like this.
                     const pastDaysOfYear = (current.addDate - firstDayOfYear) / 86400000;
-                    index = Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7).toString();
+                    index = "KW" + Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7).toString();
                     break;
                 case _data_timespan__WEBPACK_IMPORTED_MODULE_5__["Timespan"].day:
                     index = current.addDate.toLocaleDateString();
