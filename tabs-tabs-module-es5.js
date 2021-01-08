@@ -67,10 +67,10 @@
       "./src/app/tabs/tabs.page.ts");
 
       var routes = [{
-        path: "tabs",
+        path: 'tabs',
         component: _tabs_page__WEBPACK_IMPORTED_MODULE_3__["TabsPage"],
         children: [{
-          path: "overview",
+          path: 'overview',
           loadChildren: function loadChildren() {
             return Promise.all(
             /*! import() | overview-overview-module */
@@ -81,7 +81,7 @@
             });
           }
         }, {
-          path: "scanner",
+          path: 'scanner',
           loadChildren: function loadChildren() {
             return Promise.all(
             /*! import() | scanner-scanner-module */
@@ -92,14 +92,14 @@
             });
           }
         }, {
-          path: "",
-          redirectTo: "/tabs/overview",
-          pathMatch: "full"
+          path: '',
+          redirectTo: '/tabs/overview',
+          pathMatch: 'full'
         }]
       }, {
-        path: "",
-        redirectTo: "/tabs/overview",
-        pathMatch: "full"
+        path: '',
+        redirectTo: '/tabs/overview',
+        pathMatch: 'full'
       }];
 
       var TabsPageRoutingModule = function TabsPageRoutingModule() {
@@ -247,7 +247,7 @@
       };
 
       TabsPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-        selector: "app-tabs",
+        selector: 'app-tabs',
         template: Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(
         /*! raw-loader!./tabs.page.html */
         "./node_modules/raw-loader/dist/cjs.js!./src/app/tabs/tabs.page.html"))["default"],

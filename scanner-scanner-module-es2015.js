@@ -33,7 +33,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const routes = [
     {
-        path: "",
+        path: '',
         component: _scanner_page__WEBPACK_IMPORTED_MODULE_3__["ScannerPage"],
     },
 ];
@@ -170,7 +170,7 @@ let ScannerPage = class ScannerPage {
                 }
             });
             yield this.modal.present();
-            let { data } = yield this.modal.onWillDismiss();
+            const { data } = yield this.modal.onWillDismiss();
             this.modalOpen = false;
         });
     }
@@ -184,13 +184,13 @@ let ScannerPage = class ScannerPage {
     onCodeResult(resultString) {
         this.qrResultString = resultString;
         console.log(resultString);
-        var errorDialog = this.errorDialog.bind(this);
-        var generateModal = this.generateModal.bind(this);
+        const errorDialog = this.errorDialog.bind(this);
+        const generateModal = this.generateModal.bind(this);
         if (this.modalOpen === false) {
             this.modalOpen = true;
-            this.productsService.getProductDetails(resultString).then(function () {
+            this.productsService.getProductDetails(resultString).then(() => {
                 generateModal();
-            }).catch(function (error) {
+            }).catch((error) => {
                 errorDialog();
             });
         }
@@ -211,20 +211,20 @@ let ScannerPage = class ScannerPage {
                     }, {
                         text: 'Ja',
                         handler: () => {
-                            window.location.href = "mailto:nutriinfo.app@gmail.com?subject=Fehlerbericht%20NutriInfo&body=Ein%20Fehler%20mit%20dem%20Barcode%20Scanner%20wurde%20erkannt.%20Der%20Barcode%20\"[]\"%20konnte%20nicht%20in%20unserer%20Datenbank%20gefunden%20werden.%0D%0ABitte%20geben%20Sie%20manuell%20den%20Namen%20des%20Produktes%20an:".replace("[]", this.qrResultString);
+                            window.location.href = 'mailto:nutriinfo.app@gmail.com?subject=Fehlerbericht%20NutriInfo&body=Ein%20Fehler%20mit%20dem%20Barcode%20Scanner%20wurde%20erkannt.%20Der%20Barcode%20"[]"%20konnte%20nicht%20in%20unserer%20Datenbank%20gefunden%20werden.%0D%0ABitte%20geben%20Sie%20manuell%20den%20Namen%20des%20Produktes%20an:'.replace('[]', this.qrResultString);
                             this.modalOpen = false;
                         }
                     }
                 ]
             });
-            yield alert.present().then(function () {
-            }.bind(this));
+            yield alert.present().then((() => {
+            }).bind(this));
         });
     }
     onDeviceSelectChange(selected) {
         const device = this.availableDevices.find(x => x.deviceId === selected);
         this.currentDevice = device || null;
-        console.log("new device", device);
+        console.log('new device', device);
     }
     onHasPermission(has) {
         this.hasPermission = has;

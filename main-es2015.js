@@ -292,11 +292,11 @@ __webpack_require__.r(__webpack_exports__);
 
 const routes = [
     {
-        path: "",
+        path: '',
         loadChildren: () => __webpack_require__.e(/*! import() | tabs-tabs-module */ "tabs-tabs-module").then(__webpack_require__.bind(null, /*! ./tabs/tabs.module */ "./src/app/tabs/tabs.module.ts")).then((m) => m.TabsPageModule),
     },
     {
-        path: "scanner",
+        path: 'scanner',
         loadChildren: () => Promise.all(/*! import() | scanner-scanner-module */[__webpack_require__.e("common"), __webpack_require__.e("scanner-scanner-module")]).then(__webpack_require__.bind(null, /*! ./scanner/scanner.module */ "./src/app/scanner/scanner.module.ts")).then((m) => m.ScannerPageModule),
     },
     {
@@ -372,11 +372,11 @@ AppComponent.ctorParameters = () => [
     { type: _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__["StatusBar"] }
 ];
 AppComponent.propDecorators = {
-    scanner: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"], args: ["scanner", { static: false },] }]
+    scanner: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"], args: ['scanner', { static: false },] }]
 };
 AppComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-        selector: "app-root",
+        selector: 'app-root',
         template: Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(/*! raw-loader!./app.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/app.component.html")).default,
         styles: [Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(/*! ./app.component.scss */ "./src/app/app.component.scss")).default]
     })
@@ -589,7 +589,7 @@ let ProductsService = ProductsService_1 = class ProductsService {
                     const firstDayOfYear = new Date(current.addDate.getFullYear(), 0, 1);
                     // type any because typescript doesn't support abstractions like this.
                     const pastDaysOfYear = (current.addDate - firstDayOfYear) / 86400000;
-                    index = "KW" + Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7).toString();
+                    index = 'KW' + Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7).toString();
                     break;
                 case _data_timespan__WEBPACK_IMPORTED_MODULE_5__["Timespan"].day:
                     index = current.addDate.toLocaleDateString();

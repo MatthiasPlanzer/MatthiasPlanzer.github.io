@@ -71,7 +71,7 @@
       "./src/app/scanner/scanner.page.ts");
 
       var routes = [{
-        path: "",
+        path: '',
         component: _scanner_page__WEBPACK_IMPORTED_MODULE_3__["ScannerPage"]
       }];
 
@@ -371,7 +371,7 @@
                         }, {
                           text: 'Ja',
                           handler: function handler() {
-                            window.location.href = "mailto:nutriinfo.app@gmail.com?subject=Fehlerbericht%20NutriInfo&body=Ein%20Fehler%20mit%20dem%20Barcode%20Scanner%20wurde%20erkannt.%20Der%20Barcode%20\"[]\"%20konnte%20nicht%20in%20unserer%20Datenbank%20gefunden%20werden.%0D%0ABitte%20geben%20Sie%20manuell%20den%20Namen%20des%20Produktes%20an:".replace("[]", _this.qrResultString);
+                            window.location.href = 'mailto:nutriinfo.app@gmail.com?subject=Fehlerbericht%20NutriInfo&body=Ein%20Fehler%20mit%20dem%20Barcode%20Scanner%20wurde%20erkannt.%20Der%20Barcode%20"[]"%20konnte%20nicht%20in%20unserer%20Datenbank%20gefunden%20werden.%0D%0ABitte%20geben%20Sie%20manuell%20den%20Namen%20des%20Produktes%20an:'.replace('[]', _this.qrResultString);
                             _this.modalOpen = false;
                           }
                         }]
@@ -397,7 +397,7 @@
               return x.deviceId === selected;
             });
             this.currentDevice = device || null;
-            console.log("new device", device);
+            console.log('new device', device);
           }
         }, {
           key: "onHasPermission",

@@ -184,7 +184,7 @@
       "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
 
       var routes = [{
-        path: "",
+        path: '',
         loadChildren: function loadChildren() {
           return __webpack_require__.e(
           /*! import() | tabs-tabs-module */
@@ -195,7 +195,7 @@
           });
         }
       }, {
-        path: "scanner",
+        path: 'scanner',
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() | scanner-scanner-module */
@@ -340,13 +340,13 @@
       AppComponent.propDecorators = {
         scanner: [{
           type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"],
-          args: ["scanner", {
+          args: ['scanner', {
             "static": false
           }]
         }]
       };
       AppComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-        selector: "app-root",
+        selector: 'app-root',
         template: Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(
         /*! raw-loader!./app.component.html */
         "./node_modules/raw-loader/dist/cjs.js!./src/app/app.component.html"))["default"],
@@ -760,7 +760,7 @@
                     var firstDayOfYear = new Date(current.addDate.getFullYear(), 0, 1); // type any because typescript doesn't support abstractions like this.
 
                     var pastDaysOfYear = (current.addDate - firstDayOfYear) / 86400000;
-                    index = "KW" + Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7).toString();
+                    index = 'KW' + Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7).toString();
                     break;
 
                   case _data_timespan__WEBPACK_IMPORTED_MODULE_5__["Timespan"].day:

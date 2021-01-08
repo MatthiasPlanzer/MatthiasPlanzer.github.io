@@ -33,28 +33,28 @@ __webpack_require__.r(__webpack_exports__);
 
 const routes = [
     {
-        path: "tabs",
+        path: 'tabs',
         component: _tabs_page__WEBPACK_IMPORTED_MODULE_3__["TabsPage"],
         children: [
             {
-                path: "overview",
+                path: 'overview',
                 loadChildren: () => Promise.all(/*! import() | overview-overview-module */[__webpack_require__.e("common"), __webpack_require__.e("overview-overview-module")]).then(__webpack_require__.bind(null, /*! ../overview/overview.module */ "./src/app/overview/overview.module.ts")).then((m) => m.OverviewPageModule),
             },
             {
-                path: "scanner",
+                path: 'scanner',
                 loadChildren: () => Promise.all(/*! import() | scanner-scanner-module */[__webpack_require__.e("common"), __webpack_require__.e("scanner-scanner-module")]).then(__webpack_require__.bind(null, /*! ../scanner/scanner.module */ "./src/app/scanner/scanner.module.ts")).then((m) => m.ScannerPageModule),
             },
             {
-                path: "",
-                redirectTo: "/tabs/overview",
-                pathMatch: "full",
+                path: '',
+                redirectTo: '/tabs/overview',
+                pathMatch: 'full',
             },
         ],
     },
     {
-        path: "",
-        redirectTo: "/tabs/overview",
-        pathMatch: "full",
+        path: '',
+        redirectTo: '/tabs/overview',
+        pathMatch: 'full',
     },
 ];
 let TabsPageRoutingModule = class TabsPageRoutingModule {
@@ -140,7 +140,7 @@ let TabsPage = class TabsPage {
 TabsPage.ctorParameters = () => [];
 TabsPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-        selector: "app-tabs",
+        selector: 'app-tabs',
         template: Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(/*! raw-loader!./tabs.page.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/tabs/tabs.page.html")).default,
         styles: [Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(/*! ./tabs.page.scss */ "./src/app/tabs/tabs.page.scss")).default]
     })
