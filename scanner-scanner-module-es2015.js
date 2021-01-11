@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-title>Barcode-Scanner</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content *ngIf=\"enabled\">\n  <zxing-scanner [(device)]=\"currentDevice\" (scanSuccess)=\"onCodeResult($event)\"\n  [formats]=\"formatsEnabled\"  [enable]=\"enabled\" (permissionResponse)=\"onHasPermission($event)\"\n  (camerasFound)=\"onCamerasFound($event)\" tryHarder=\"true\"></zxing-scanner>\n</ion-content>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-title>Barcode-Scanner</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content *ngIf=\"enabled\">\n  <zxing-scanner\n    [(device)]=\"currentDevice\"\n    (scanSuccess)=\"onCodeResult($event)\"\n    [formats]=\"formatsEnabled\"\n    [enable]=\"enabled\"\n    (permissionResponse)=\"onHasPermission($event)\"\n    (camerasFound)=\"onCamerasFound($event)\"\n    tryHarder=\"true\"\n  ></zxing-scanner>\n</ion-content>\n");
 
 /***/ }),
 
@@ -93,6 +93,7 @@ ScannerPageModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
             _scanner_page__WEBPACK_IMPORTED_MODULE_6__["ScannerPage"],
             _add_product_add_product_component__WEBPACK_IMPORTED_MODULE_8__["AddProductComponent"]
         ],
+        providers: [],
         declarations: [_scanner_page__WEBPACK_IMPORTED_MODULE_6__["ScannerPage"], _add_product_add_product_component__WEBPACK_IMPORTED_MODULE_8__["AddProductComponent"]],
     })
 ], ScannerPageModule);
@@ -132,6 +133,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _add_product_add_product_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../add-product/add-product.component */ "./src/app/add-product/add-product.component.ts");
 /* harmony import */ var _products_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../products.service */ "./src/app/products.service.ts");
 
+// import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 
 
@@ -143,6 +145,7 @@ let ScannerPage = class ScannerPage {
         this.productsService = productsService;
         this.alertController = alertController;
         this.modalOpen = false;
+        this.isAndroid = false;
         this.currentDevice = null;
         this.formatsEnabled = [
             _zxing_library__WEBPACK_IMPORTED_MODULE_3__["BarcodeFormat"].CODE_128,

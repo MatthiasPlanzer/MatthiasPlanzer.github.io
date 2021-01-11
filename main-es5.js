@@ -433,52 +433,57 @@
       /* harmony import */
 
 
-      var _ionic_native_dialogs_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      var _ionic_native_barcode_scanner_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      /*! @ionic-native/barcode-scanner/ngx */
+      "./node_modules/@ionic-native/barcode-scanner/__ivy_ngcc__/ngx/index.js");
+      /* harmony import */
+
+
+      var _ionic_native_dialogs_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! @ionic-native/dialogs/ngx */
       "./node_modules/@ionic-native/dialogs/__ivy_ngcc__/ngx/index.js");
       /* harmony import */
 
 
-      var _zxing_ngx_scanner__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      var _zxing_ngx_scanner__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
       /*! @zxing/ngx-scanner */
       "./node_modules/@zxing/ngx-scanner/fesm2015/zxing-ngx-scanner.js");
       /* harmony import */
 
 
-      var _angular_service_worker__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+      var _angular_service_worker__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
       /*! @angular/service-worker */
       "./node_modules/@angular/service-worker/__ivy_ngcc__/fesm2015/service-worker.js");
       /* harmony import */
 
 
-      var _environments_environment__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+      var _environments_environment__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
       /*! ../environments/environment */
       "./src/environments/environment.ts");
       /* harmony import */
 
 
-      var _ionic_storage__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
+      var _ionic_storage__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
       /*! @ionic/storage */
       "./node_modules/@ionic/storage/__ivy_ngcc__/fesm2015/ionic-storage.js");
       /* harmony import */
 
 
-      var _products_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
+      var _products_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(
       /*! ./products.service */
       "./src/app/products.service.ts");
       /* harmony import */
 
 
-      var _angular_common_http__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(
+      var _angular_common_http__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(
       /*! @angular/common/http */
       "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
       /* harmony import */
 
 
-      var _angular_common__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(
+      var _angular_common__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(
       /*! @angular/common */
-      "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js"); // import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
-
+      "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
 
       var AppModule = function AppModule() {
         _classCallCheck(this, AppModule);
@@ -487,12 +492,11 @@
       AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
         declarations: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]],
         entryComponents: [],
-        imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_15__["HttpClientModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(), _ionic_storage__WEBPACK_IMPORTED_MODULE_13__["IonicStorageModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"], _zxing_ngx_scanner__WEBPACK_IMPORTED_MODULE_10__["ZXingScannerModule"], _angular_common__WEBPACK_IMPORTED_MODULE_16__["CommonModule"], _angular_service_worker__WEBPACK_IMPORTED_MODULE_11__["ServiceWorkerModule"].register('ngsw-worker.js', {
-          enabled: _environments_environment__WEBPACK_IMPORTED_MODULE_12__["environment"].production
+        imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_16__["HttpClientModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(), _ionic_storage__WEBPACK_IMPORTED_MODULE_14__["IonicStorageModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"], _zxing_ngx_scanner__WEBPACK_IMPORTED_MODULE_11__["ZXingScannerModule"], _angular_common__WEBPACK_IMPORTED_MODULE_17__["CommonModule"], _angular_service_worker__WEBPACK_IMPORTED_MODULE_12__["ServiceWorkerModule"].register('ngsw-worker.js', {
+          enabled: _environments_environment__WEBPACK_IMPORTED_MODULE_13__["environment"].production
         })],
-        providers: [_ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"], _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"], _products_service__WEBPACK_IMPORTED_MODULE_14__["ProductsService"], // BarcodeScanner,
-        // ZXingScannerModule,
-        _ionic_native_dialogs_ngx__WEBPACK_IMPORTED_MODULE_9__["Dialogs"], {
+        providers: [_ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"], _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"], _products_service__WEBPACK_IMPORTED_MODULE_15__["ProductsService"], _ionic_native_barcode_scanner_ngx__WEBPACK_IMPORTED_MODULE_9__["BarcodeScanner"], // ZXingScannerModule,
+        _ionic_native_dialogs_ngx__WEBPACK_IMPORTED_MODULE_10__["Dialogs"], {
           provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"],
           useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"]
         }],
@@ -633,7 +637,7 @@
                       return _context.abrupt("return", products.sort().reverse());
 
                     case 7:
-                      return _context.abrupt("return", null);
+                      return _context.abrupt("return", []);
 
                     case 8:
                     case "end":
